@@ -20,18 +20,20 @@ import javax.swing.JFileChooser;
  * @author Lukas
  */
 public class GrussSeite extends javax.swing.JFrame {
-    BufferedImage bi=null;
-    BufferedImage bildoriginal=null;
-    BufferedImage blank=null;
-    int bl=0;
-    int ro=0;
-    int gr=0;
-    int x=0;
-    int y=0;
-    int zaehler=0;
-    int oben_x=0;
-    int oben_y=0;
-    
+
+    BufferedImage bi = null;
+    BufferedImage bildoriginal = null;
+    BufferedImage blank = null;
+    int bl = 0;
+    int ro = 0;
+    int gr = 0;
+    int x = 0;
+    int y = 0;
+    int zaehler = 0;
+    int oben_x = 0;
+    int oben_y = 0;
+    int groesse = 0;
+
     /**
      * Creates new form GrussSeite
      */
@@ -64,7 +66,7 @@ public class GrussSeite extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jProgressBar1 = new javax.swing.JProgressBar();
+        jSlider1 = new javax.swing.JSlider();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -125,6 +127,14 @@ public class GrussSeite extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
+        jSlider1.setMaximum(20);
+        jSlider1.setMinimum(1);
+        jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlider1StateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -157,21 +167,19 @@ public class GrussSeite extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(197, 197, 197)
-                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 133, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(14, 14, 14))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addContainerGap()
+                        .addComponent(jLabel1))
+                    .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
@@ -194,19 +202,19 @@ public class GrussSeite extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        final JFileChooser fc = new JFileChooser();     
+        final JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File("/"));
-       
+
         int zahl = fc.showOpenDialog(this);
-        File f=fc.getSelectedFile();
-              String pfad=f.getAbsolutePath();
-              jLabel3.setForeground(Color.blue);
-              jLabel3.setText(f.getName());
-        if (pfad!=null){
+        File f = fc.getSelectedFile();
+        String pfad = f.getAbsolutePath();
+        jLabel3.setForeground(Color.blue);
+        jLabel3.setText(f.getName());
+        if (pfad != null) {
             try {
-                bi=ImageIO.read(new File(pfad));
-                
-                bildoriginal=bi; // damit das original noch da ist
+                bi = ImageIO.read(new File(pfad));
+
+                bildoriginal = bi; // damit das original noch da ist
                 jPanel1.repaint();
                 jLabel4.setForeground(Color.blue);
                 jLabel4.setText("Laden der Datei erfolgreich");
@@ -218,114 +226,111 @@ public class GrussSeite extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        final JFileChooser fc = new JFileChooser(); 
+        final JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File("/"));
         int zahl = fc.showSaveDialog(this);
-        File f=fc.getSelectedFile();
-        
+        File f = fc.getSelectedFile();
+
         try {
             ImageIO.write(bi, "png", f);
             jLabel4.setForeground(Color.blue);
-            jLabel4.setText("Gespeichert in "+f.getParent());
+            jLabel4.setText("Gespeichert in " + f.getParent());
         } catch (IOException ex) {
             jLabel4.setForeground(Color.red);
             jLabel4.setText("Problem beim Speichern aufgetreten!");
         }
-       
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      String empfaenger=jTextField1.getText();
-      String ort=jTextField2.getText();
-      String absender=jTextField3.getText();
-          
-       if (bildoriginal!=null){
-           
-           blank = new BufferedImage ( bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_INT_RGB );
+        String empfaenger = jTextField1.getText();
+        String ort = jTextField2.getText();
+        String absender = jTextField3.getText();
+
+        if (bildoriginal != null) {
+
+            blank = new BufferedImage(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_INT_RGB);
             Graphics2D g_blank = blank.createGraphics();
-            g_blank.setColor( new Color ( 255, 255, 255 ));
+            g_blank.setColor(new Color(255, 255, 255));
             g_blank.fillRect(0, 0, bi.getWidth(), bi.getHeight());
-           
-                      
-            Graphics2D g2d=bildoriginal.createGraphics();
-            Graphics2D g_bi=bi.createGraphics();
-          
-            g_bi.setFont(new Font("Vijaya",Font.PLAIN,200));
+
+            Graphics2D g2d = bildoriginal.createGraphics();
+            Graphics2D g_bi = bi.createGraphics();
+
+            g_bi.setFont(new Font("Vijaya", Font.PLAIN, 200));
             g_bi.setColor(Color.blue);
-            g_bi.drawString(""+empfaenger+",", 200, 200);
-            g_bi.drawString(""+ort+".", 200, 400);
+            g_bi.drawString("" + empfaenger + ",", 200, 200);
+            g_bi.drawString("" + ort + ".", 200, 400);
             g_bi.drawString(absender, 200, 600);
-            
-            g_blank.setFont(new Font("Vijaya",Font.PLAIN,200));
+
+            g_blank.setFont(new Font("Vijaya", Font.PLAIN, 200));
             g_blank.setColor(Color.blue);
-            g_blank.drawString(""+empfaenger+",", 200, 200);
-            g_blank.drawString(""+ort+".", 200, 400);
+            g_blank.drawString("" + empfaenger + ",", 200, 200);
+            g_blank.drawString("" + ort + ".", 200, 400);
             g_blank.drawString(absender, 200, 600);
-            
-            for(int i=0; i<(bi.getWidth()*bi.getHeight());i++){ //falsch
-            
-            int co=blank.getRGB(x, y);
-                                    Color c=new Color(co);                                 
-                                    gr+=c.getGreen();
-                                    ro+=c.getRed();
-             if(x==bi.getWidth()-1){
-                 y++;
-                 x=0;
-             }                       
-                                    
-             if(gr==255 && ro==255){      //Weiß-> kein Text                 
-                  x++;           
-              }
-             else{            //blau -> Text              
-             x++; 
-             zaehler++;
-             if(zaehler==1){
-                 oben_x=x;
-                 oben_y=y;
-             }
-             else if(zaehler==10){
-                 x=oben_x;
-                 y++;
-                 if((y-oben_y)==10){
-                     g_bi.setColor(Color.red);
-                    g_bi.drawRect(oben_x,oben_y,10, 10);
-                    g_bi.setColor(Color.yellow);
-                    g_bi.fillRect(oben_x+1,oben_y+1, 8, 8);
-                    zaehler=0;
+
+            for (int i = 0; i < (bi.getWidth() * bi.getHeight()); i++) { //falsch
+                x = i % bi.getWidth();
+                y = (int) (i / bi.getWidth());
+                int co = blank.getRGB(x, y);
+                Color c = new Color(co);
+                bl = c.getBlue();
+                gr = c.getGreen();
+                ro = c.getRed();
+                if (x == bi.getWidth() - 1) {
+                    y++;
+                    x = 0;
+                }
+
+                if (gr == 255 && ro == 255) {      //Weiß-> kein Text                 
                     x++;
-                 }
-             }
-             }
-             jProgressBar1.setValue((i/(bi.getWidth()*bi.getHeight()))*100);
+                } else {            //blau -> Text              
+                    x++;
+                    zaehler++;
+                    if (zaehler == 1) {
+                        g_bi.setColor(Color.red);
+                        g_bi.drawRect(x, y, groesse, groesse);
+                        g_bi.setColor(Color.yellow);
+                        g_bi.fillRect(x + 1, y + 1, groesse - 2, groesse - 2);
+                        
+                        zaehler = 0;
+
+                    }
+                }
+
+                i = y * bi.getWidth() + x;
             }
-             jPanel1.repaint(); 
-             
-             jButton3.setBackground(Color.green);
-          
+            jPanel1.repaint();
+
+            jButton3.setBackground(Color.green);
+
     }//GEN-LAST:event_jButton2ActionPerformed
-       else {
-           jLabel4.setForeground(Color.red);
-           jLabel4.setText("Noch kein Bild ausgewählt!!");
-       }
-           
-       }
-    
+else {
+            jLabel4.setForeground(Color.red);
+            jLabel4.setText("Noch kein Bild ausgewählt!!");
+        }
+    }
+
+    private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
+        groesse=jSlider1.getValue();
+    }//GEN-LAST:event_jSlider1StateChanged
+
     /**
      * @param args the command line arguments
      */
-    
-    public void zeichneBild(Graphics g){
-        if (bi!=null){
-            int w=jPanel1.getWidth();
-            int hoeheneu=bi.getHeight()*w/bi.getWidth();
-            System.out.println("Maße des Bildes original: "+bi.getWidth()+" "+bi.getHeight()+" , nach Anpassung: "+w+" "+hoeheneu);
-            
-            g.drawImage(bi,0 , 0, w,hoeheneu,this);
+    public void zeichneBild(Graphics g) {
+        if (bi != null) {
+            int w = jPanel1.getWidth();
+            int hoeheneu = bi.getHeight() * w / bi.getWidth();
+            System.out.println("Maße des Bildes original: " + bi.getWidth() + " " + bi.getHeight() + " , nach Anpassung: " + w + " " + hoeheneu);
+
+            g.drawImage(bi, 0, 0, w, hoeheneu, this);
         } else {
-            g.setColor(new Color(10,10,100));
+            g.setColor(new Color(10, 10, 100));
             g.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
         }
     }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -367,7 +372,7 @@ public class GrussSeite extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JSlider jSlider1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
