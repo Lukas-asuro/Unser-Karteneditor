@@ -20,6 +20,18 @@ import javax.swing.JFileChooser;
  * @author Lukas
  */
 public class GrussSeite extends javax.swing.JFrame {
+    
+    class punkt{
+        int x_koordinate;
+        int y_koordinate;
+        boolean text;
+        punkt(int x_k,int y_k, boolean t){
+        this.x_koordinate=x_k;
+        this.y_koordinate=y_k;
+        this.text=t;
+    }
+            }
+    
 
     BufferedImage bi = null;
     BufferedImage bildoriginal = null;
@@ -32,7 +44,9 @@ public class GrussSeite extends javax.swing.JFrame {
     int zaehler = 0;
     int oben_x = 0;
     int oben_y = 0;
-    int groesse = 0;
+    int groesse = 10;
+    
+           
 
     /**
      * Creates new form GrussSeite
@@ -66,7 +80,6 @@ public class GrussSeite extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jSlider1 = new javax.swing.JSlider();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -127,14 +140,6 @@ public class GrussSeite extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
-        jSlider1.setMaximum(20);
-        jSlider1.setMinimum(1);
-        jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jSlider1StateChanged(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -164,21 +169,15 @@ public class GrussSeite extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(197, 197, 197)
-                                .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel1))
                         .addGap(0, 133, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1))
-                    .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(jLabel1)
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -246,6 +245,9 @@ public class GrussSeite extends javax.swing.JFrame {
         String empfaenger = jTextField1.getText();
         String ort = jTextField2.getText();
         String absender = jTextField3.getText();
+        
+        
+        
 
         if (bildoriginal != null) {
 
@@ -269,7 +271,7 @@ public class GrussSeite extends javax.swing.JFrame {
             g_blank.drawString("" + ort + ".", 200, 400);
             g_blank.drawString(absender, 200, 600);
 
-            for (int i = 0; i < (bi.getWidth() * bi.getHeight()); i++) { //falsch
+            for (int i = 0; i < (bi.getWidth() * bi.getHeight()); i++) { 
                 x = i % bi.getWidth();
                 y = (int) (i / bi.getWidth());
                 int co = blank.getRGB(x, y);
@@ -280,25 +282,20 @@ public class GrussSeite extends javax.swing.JFrame {
                 if (x == bi.getWidth() - 1) {
                     y++;
                     x = 0;
+                    
                 }
 
                 if (gr == 255 && ro == 255) {      //Weiß-> kein Text                 
-                    x++;
+                    punkt p=new punkt(x,y,false);
+                   
+                    
                 } else {            //blau -> Text              
-                    x++;
-                    zaehler++;
-                    if (zaehler == 1) {
-                        g_bi.setColor(Color.red);
-                        g_bi.drawRect(x, y, groesse, groesse);
-                        g_bi.setColor(Color.yellow);
-                        g_bi.fillRect(x + 1, y + 1, groesse - 2, groesse - 2);
-                        
-                        zaehler = 0;
-
-                    }
+                    punkt p=new punkt(x,y,true);
+                   
                 }
 
                 i = y * bi.getWidth() + x;
+                x++;
             }
             jPanel1.repaint();
 
@@ -310,10 +307,6 @@ else {
             jLabel4.setText("Noch kein Bild ausgewählt!!");
         }
     }
-
-    private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
-        groesse=jSlider1.getValue();
-    }//GEN-LAST:event_jSlider1StateChanged
 
     /**
      * @param args the command line arguments
@@ -372,7 +365,6 @@ else {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSlider jSlider1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
