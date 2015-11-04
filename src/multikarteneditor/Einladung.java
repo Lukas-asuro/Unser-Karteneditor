@@ -5,6 +5,7 @@
  */
 package multikarteneditor;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -34,8 +35,8 @@ public class Einladung extends javax.swing.JFrame {
     int h2 = 0;
     int a1 = 135;
     int a2 = 90;
-    int transparenz=0;
-
+    int transparenz = 0;
+    boolean gespeichert=false;
     /**
      * Creates new form Einladung
      */
@@ -52,6 +53,7 @@ public class Einladung extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDialog1 = new javax.swing.JDialog();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -90,6 +92,19 @@ public class Einladung extends javax.swing.JFrame {
                 zeichneBild(g);
             }
         };
+
+        jDialog1.setLocation(new java.awt.Point(200, 200));
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -376,16 +391,33 @@ public class Einladung extends javax.swing.JFrame {
         g_karte.setColor(new Color(ro, gr, bl));
         g_karte.fillRect(0, 0, jPanel2.getWidth(), jPanel2.getHeight());
 
-        int r = (int) (Math.random() * 100) + 80;
+        int r = (int) (Math.random() * 120) + 100;
         for (int i = 0; i < r; i++) {
             int zr = (int) (Math.random() * 200) + 55;
             int zg = (int) (Math.random() * 200) + 55;
             int zb = (int) (Math.random() * 200) + 55;
             int zx = (int) (Math.random() * jPanel2.getWidth()) + 20;
             int zy = (int) (Math.random() * jPanel2.getHeight()) + 20;
-            g_karte.setColor(new Color(zr, zg, zb,transparenz));
-            
+            g_karte.setColor(new Color(zr, zg, zb, transparenz));
             g_karte.fillArc(zx, zy, 10, 10, 0, 360);
+        }
+        g_karte.setColor(new Color(ro2, gr2, bl2));
+        for (int i = 0; i < jPanel2.getHeight(); i++) {
+            int h = (int) (Math.random() * 10) + 5;
+            rx = 20;
+
+            BasicStroke stroke1 = new BasicStroke(4.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
+            g_karte.setStroke(stroke1);
+            g_karte.drawArc(rx, ry, h, h, a1, a2);
+            ry = ry + h + h2;
+            h = h2;
+            if (a1 == 270) {
+                a1 = 90;
+                a2 = 180;
+            } else {
+                a1 = 270;
+                a2 = 180;
+            }
         }
 
         g_karte.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -411,27 +443,6 @@ public class Einladung extends javax.swing.JFrame {
         g_karte.setColor(Color.blue);
         g_karte.drawString(absender, 50, 280 + a);
 
-        for (int i = 0; i < jPanel2.getHeight(); i++) {
-
-            int h = (int) (Math.random() * 10) + 5;
-            int rx = (int) (Math.random() * 3) + 1;
-
-            rx = rx + 20;
-
-            g_karte.setColor(Color.red);
-
-            g_karte.drawArc(rx, ry, h, h, a1, a2);
-            ry = ry + h + h2;
-            h = h2;
-            if (a1 == 135) {
-                a1 = 315;
-                a2 = 90;
-            } else {
-                a1 = 135;
-                a2 = 90;
-            }
-        }
-
         jPanel2.repaint();
 
 
@@ -451,11 +462,33 @@ public class Einladung extends javax.swing.JFrame {
 
     private void jComboBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox2ItemStateChanged
         auswahl = jComboBox2.getSelectedIndex();
+        if (auswahl == 0) {
+            jSlider1.setValue(ro);
+            jSlider2.setValue(gr);
+            jSlider3.setValue(bl);
+            jLabel10.setForeground(Color.red);
+            jLabel10.setText(" " + ro + "");
+            jLabel11.setForeground(Color.green);
+            jLabel11.setText(" " + gr + "");
+            jLabel12.setForeground(Color.blue);
+            jLabel12.setText(" " + bl + "");
+        } else if (auswahl == 1) {
+            jSlider1.setValue(ro2);
+            jSlider2.setValue(gr2);
+            jSlider3.setValue(bl2);
+            jLabel10.setForeground(Color.red);
+            jLabel10.setText(" " + ro2 + "");
+            jLabel11.setForeground(Color.green);
+            jLabel11.setText(" " + gr2 + "");
+            jLabel12.setForeground(Color.blue);
+            jLabel12.setText(" " + bl2 + "");
+
+        }
     }//GEN-LAST:event_jComboBox2ItemStateChanged
 
     private void jSlider4StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider4StateChanged
-        transparenz=jSlider4.getValue();
-        jLabel9.setText(""+transparenz+"");
+        transparenz = jSlider4.getValue();
+        jLabel9.setText("" + transparenz + "");
     }//GEN-LAST:event_jSlider4StateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -475,7 +508,17 @@ public class Einladung extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if(gespeichert){
         System.exit(0);
+        }
+        else{
+            jDialog1.setVisible(true);
+            jDialog1.setBackground(Color.yellow);
+            jDialog1.setForeground(Color.red);
+            jDialog1.setSize(100, 100);
+            jDialog1.setName("Achtung");
+            jDialog1.setTitle("ACHTUNG: Karte wurde noch nicht gespeichert");
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -502,18 +545,23 @@ public class Einladung extends javax.swing.JFrame {
             ro = jSlider1.getValue();
             gr = jSlider2.getValue();
             bl = jSlider3.getValue();
+            jLabel10.setForeground(Color.red);
+            jLabel10.setText(" " + ro + "");
+            jLabel11.setForeground(Color.green);
+            jLabel11.setText(" " + gr + "");
+            jLabel12.setForeground(Color.blue);
+            jLabel12.setText(" " + bl + "");
         } else if (auswahl == 1) {
             ro2 = jSlider1.getValue();
             gr2 = jSlider2.getValue();
             bl2 = jSlider3.getValue();
+            jLabel10.setForeground(Color.red);
+            jLabel10.setText(" " + ro2 + "");
+            jLabel11.setForeground(Color.green);
+            jLabel11.setText(" " + gr2 + "");
+            jLabel12.setForeground(Color.blue);
+            jLabel12.setText(" " + bl2 + "");
         }
-        jLabel10.setForeground(Color.red);
-        jLabel10.setText(" " + ro + "");
-        jLabel11.setForeground(Color.green);
-        jLabel11.setText(" " + gr + "");
-        jLabel12.setForeground(Color.blue);
-        jLabel12.setText(" " + bl + "");
-        jPanel2.repaint();
 
     }
 
@@ -556,6 +604,7 @@ public class Einladung extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
