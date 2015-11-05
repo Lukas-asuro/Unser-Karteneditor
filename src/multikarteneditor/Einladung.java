@@ -33,8 +33,8 @@ public class Einladung extends javax.swing.JFrame {
     int rx = 20;
     int ry = 0;
     int h2 = 0;
-    int a1 = 135;
-    int a2 = 90;
+    int a1 = 270;
+    int a2 = 180;
     int transparenz = 0;
     boolean gespeichert=false;
     /**
@@ -54,6 +54,9 @@ public class Einladung extends javax.swing.JFrame {
     private void initComponents() {
 
         jDialog1 = new javax.swing.JDialog();
+        jLabel15 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -93,18 +96,57 @@ public class Einladung extends javax.swing.JFrame {
             }
         };
 
+        jDialog1.setTitle("Hinweis");
+        jDialog1.setBackground(new java.awt.Color(255, 255, 0));
         jDialog1.setLocation(new java.awt.Point(200, 200));
+        jDialog1.setName("Hilfe Hilfe"); // NOI18N
+
+        jLabel15.setText("Achtung! Du hast die Karte noch nicht gespeichert! Willst du das Programm trotzdem beenden? ");
+
+        jButton5.setForeground(new java.awt.Color(207, 0, 0));
+        jButton5.setText("Nicht speichern und beenden");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(0, 116, 0));
+        jButton6.setText("Speichern");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
         jDialog1Layout.setHorizontalGroup(
             jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(jDialog1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15)
+                    .addGroup(jDialog1Layout.createSequentialGroup()
+                        .addComponent(jButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton6)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jDialog1Layout.setVerticalGroup(
             jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(jDialog1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton5)
+                    .addComponent(jButton6))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
+
+        jDialog1.getAccessibleContext().setAccessibleDescription("noch nicht gespeichert");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -356,7 +398,7 @@ public class Einladung extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(88, 88, 88)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -365,10 +407,13 @@ public class Einladung extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(115, Short.MAX_VALUE))
         );
 
@@ -390,8 +435,9 @@ public class Einladung extends javax.swing.JFrame {
         Graphics2D g_karte = karte.createGraphics();
         g_karte.setColor(new Color(ro, gr, bl));
         g_karte.fillRect(0, 0, jPanel2.getWidth(), jPanel2.getHeight());
+        
 
-        int r = (int) (Math.random() * 120) + 100;
+        int r = (int) (Math.random() * 120) + 100;  //Konfetti zeichnen
         for (int i = 0; i < r; i++) {
             int zr = (int) (Math.random() * 200) + 55;
             int zg = (int) (Math.random() * 200) + 55;
@@ -401,26 +447,27 @@ public class Einladung extends javax.swing.JFrame {
             g_karte.setColor(new Color(zr, zg, zb, transparenz));
             g_karte.fillArc(zx, zy, 10, 10, 0, 360);
         }
-        g_karte.setColor(new Color(ro2, gr2, bl2));
+        BasicStroke stroke1 = new BasicStroke(4.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER); //Luftschlangen
+        int h=0;
         for (int i = 0; i < jPanel2.getHeight(); i++) {
-            int h = (int) (Math.random() * 10) + 5;
-            rx = 20;
-
-            BasicStroke stroke1 = new BasicStroke(4.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
+             h = (int) (Math.random() * 10) + 5;
             g_karte.setStroke(stroke1);
+            g_karte.setColor(new Color(ro2, gr2, bl2));
             g_karte.drawArc(rx, ry, h, h, a1, a2);
+            g_karte.drawArc(jPanel2.getWidth()-(rx+10), ry, h, h, a1, a2);
             ry = ry + h + h2;
             h = h2;
             if (a1 == 270) {
                 a1 = 90;
-                a2 = 180;
             } else {
                 a1 = 270;
-                a2 = 180;
             }
         }
+        
+        
+        
 
-        g_karte.setFont(new Font("Arial", Font.PLAIN, 20));
+        g_karte.setFont(new Font("Arial", Font.PLAIN, 20)); //Text
         g_karte.setColor(Color.blue);
         g_karte.drawString("" + anrede + ",", 50, 40);
         int laenge = text.length();
@@ -492,19 +539,7 @@ public class Einladung extends javax.swing.JFrame {
     }//GEN-LAST:event_jSlider4StateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        final JFileChooser fc = new JFileChooser();
-        fc.setCurrentDirectory(new File("/"));
-        int zahl = fc.showSaveDialog(this);
-        File f = fc.getSelectedFile();
-
-        try {
-            ImageIO.write(karte, "png", f);
-            jLabel14.setForeground(Color.blue);
-            jLabel14.setText("Gespeichert in " + f.getParent());
-        } catch (IOException ex) {
-            jLabel14.setForeground(Color.red);
-            jLabel14.setText("Problem beim Speichern aufgetreten!");
-        }
+       speichern();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -513,13 +548,19 @@ public class Einladung extends javax.swing.JFrame {
         }
         else{
             jDialog1.setVisible(true);
-            jDialog1.setBackground(Color.yellow);
-            jDialog1.setForeground(Color.red);
-            jDialog1.setSize(100, 100);
-            jDialog1.setName("Achtung");
-            jDialog1.setTitle("ACHTUNG: Karte wurde noch nicht gespeichert");
+            jDialog1.setSize(600, 100);
+            jDialog1.setTitle("WARNUNG");
+            jDialog1.repaint();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+       System.exit(0);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        speichern();
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -564,6 +605,22 @@ public class Einladung extends javax.swing.JFrame {
         }
 
     }
+    
+    public void speichern(){
+         final JFileChooser fc = new JFileChooser();
+        fc.setCurrentDirectory(new File("/"));
+        int zahl = fc.showSaveDialog(this);
+        File f = fc.getSelectedFile();
+
+        try {
+            ImageIO.write(karte, "png", f);
+            jLabel14.setForeground(Color.blue);
+            jLabel14.setText("Gespeichert in " + f.getParent());
+        } catch (IOException ex) {
+            jLabel14.setForeground(Color.red);
+            jLabel14.setText("Problem beim Speichern aufgetreten!");
+        }
+    }
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -602,6 +659,8 @@ public class Einladung extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JDialog jDialog1;
@@ -611,6 +670,7 @@ public class Einladung extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
