@@ -23,6 +23,7 @@ import javax.swing.JFileChooser;
 public class Einladung extends javax.swing.JFrame {
 
     BufferedImage karte = null;
+    BufferedImage karte2=null;
     int ro = 0;
     int gr = 0;
     int bl = 0;
@@ -33,10 +34,13 @@ public class Einladung extends javax.swing.JFrame {
     int rx = 20;
     int ry = 0;
     int h2 = 0;
-    int a1 = 270;
-    int a2 = 180;
+    int a1 = 260;
+    int a2 = 200;
     int transparenz = 0;
+    int seite=1;
+    String betreff=null;
     boolean gespeichert=false;
+    boolean schnee=false;
     /**
      * Creates new form Einladung
      */
@@ -89,6 +93,7 @@ public class Einladung extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
         jPanel2 =  new javax.swing.JPanel(){
             public void paintComponent(Graphics g){
                 super.paintComponent(g);
@@ -166,8 +171,13 @@ public class Einladung extends javax.swing.JFrame {
 
         jLabel8.setText("Absender");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Thema auswählen...", "Geburtstag", "Jubiläum", "Weihnachtsfeier", "Sonstiges" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Vorlagen auswählen...", "Geburtstag", "Jubiläum", "Weihnachtsfeier", " " }));
         jComboBox1.setBorder(null);
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
 
         jButton1.setText("Einstellungen/Text übernehmen...");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -193,10 +203,13 @@ public class Einladung extends javax.swing.JFrame {
         });
 
         jLabel10.setBackground(new java.awt.Color(255, 0, 0));
+        jLabel10.setForeground(new java.awt.Color(255, 0, 0));
         jLabel10.setText("0");
 
+        jLabel11.setForeground(new java.awt.Color(0, 255, 0));
         jLabel11.setText("0");
 
+        jLabel12.setForeground(new java.awt.Color(0, 0, 255));
         jLabel12.setText("0");
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hintergrundfarbe", "Umrandungsfarbe" }));
@@ -242,6 +255,13 @@ public class Einladung extends javax.swing.JFrame {
 
         jButton4.setText("Karte Drucken");
 
+        jToggleButton1.setText("Außenseite ansehen...");
+        jToggleButton1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jToggleButton1ItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -255,11 +275,6 @@ public class Einladung extends javax.swing.JFrame {
                             .addComponent(jButton1)
                             .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -283,27 +298,31 @@ public class Einladung extends javax.swing.JFrame {
                                     .addComponent(jTextField7)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel13)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jSlider4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jSlider3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jButton3)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jButton3))
+                                            .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jSlider3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel13)
+                                            .addComponent(jSlider4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel11)
+                                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton4))
+                            .addComponent(jToggleButton1))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -340,36 +359,35 @@ public class Einladung extends javax.swing.JFrame {
                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jSlider3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 7, Short.MAX_VALUE))
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(8, 8, 8)
+                    .addComponent(jSlider3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSlider4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSlider4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToggleButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGap(9, 9, 9)
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3)
@@ -414,7 +432,7 @@ public class Einladung extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(44, 44, 44)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         pack();
@@ -436,6 +454,11 @@ public class Einladung extends javax.swing.JFrame {
         g_karte.setColor(new Color(ro, gr, bl));
         g_karte.fillRect(0, 0, jPanel2.getWidth(), jPanel2.getHeight());
         
+        karte2 = new BufferedImage(jPanel2.getWidth(), jPanel2.getHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics2D g_karte2 = karte2.createGraphics();
+        g_karte2.setColor(new Color(ro, gr, bl));
+        g_karte2.fillRect(0, 0, jPanel2.getWidth(), jPanel2.getHeight());
+        
 
         int r = (int) (Math.random() * 120) + 100;  //Konfetti zeichnen
         for (int i = 0; i < r; i++) {
@@ -447,22 +470,20 @@ public class Einladung extends javax.swing.JFrame {
             g_karte.setColor(new Color(zr, zg, zb, transparenz));
             g_karte.fillArc(zx, zy, 10, 10, 0, 360);
         }
-        BasicStroke stroke1 = new BasicStroke(4.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER); //Luftschlangen
-        int h=0;
-        for (int i = 0; i < jPanel2.getHeight(); i++) {
-             h = (int) (Math.random() * 10) + 5;
-            g_karte.setStroke(stroke1);
-            g_karte.setColor(new Color(ro2, gr2, bl2));
-            g_karte.drawArc(rx, ry, h, h, a1, a2);
-            g_karte.drawArc(jPanel2.getWidth()-(rx+10), ry, h, h, a1, a2);
-            ry = ry + h + h2;
-            h = h2;
-            if (a1 == 270) {
-                a1 = 90;
-            } else {
-                a1 = 270;
-            }
+        
+        if(schnee){
+              //Schnee zeichnen
+            g_karte.setColor(new Color(255, 255, 255, 200));
+        for (int i = 0; i < 200; i++) {
+            int zx = (int) (Math.random() * jPanel2.getWidth()) + 20;
+            int zy = (int) (Math.random() * jPanel2.getHeight()) + 20;
+            
+            g_karte.fillArc(zx, zy, 6, 6, 0, 360);
         }
+            g_karte.fillRect(0, jPanel2.getHeight()-50, jPanel2.getWidth(), 50);
+            
+        }
+        
         
         
         
@@ -510,26 +531,9 @@ public class Einladung extends javax.swing.JFrame {
     private void jComboBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox2ItemStateChanged
         auswahl = jComboBox2.getSelectedIndex();
         if (auswahl == 0) {
-            jSlider1.setValue(ro);
-            jSlider2.setValue(gr);
-            jSlider3.setValue(bl);
-            jLabel10.setForeground(Color.red);
-            jLabel10.setText(" " + ro + "");
-            jLabel11.setForeground(Color.green);
-            jLabel11.setText(" " + gr + "");
-            jLabel12.setForeground(Color.blue);
-            jLabel12.setText(" " + bl + "");
+            slider(ro,gr,bl,transparenz);
         } else if (auswahl == 1) {
-            jSlider1.setValue(ro2);
-            jSlider2.setValue(gr2);
-            jSlider3.setValue(bl2);
-            jLabel10.setForeground(Color.red);
-            jLabel10.setText(" " + ro2 + "");
-            jLabel11.setForeground(Color.green);
-            jLabel11.setText(" " + gr2 + "");
-            jLabel12.setForeground(Color.blue);
-            jLabel12.setText(" " + bl2 + "");
-
+            slider(ro2,gr2,bl2,transparenz);
         }
     }//GEN-LAST:event_jComboBox2ItemStateChanged
 
@@ -562,6 +566,60 @@ public class Einladung extends javax.swing.JFrame {
         speichern();
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        int thema=jComboBox1.getSelectedIndex();
+        if(thema==1){ //Geburtstag
+            ro=250;
+            gr=250;
+            bl=0;
+            ro2=255;
+            gr2=100;
+            bl2=0;
+            transparenz=100;
+            betreff="Geburtstag";
+            schnee=false;
+            slider(ro,gr,bl,transparenz);
+        }
+        else if (thema==2){ //Jubiläum
+            ro=250;
+            gr=250;
+            bl=200;
+            ro2=255;
+            gr2=50;
+            bl2=0;
+            transparenz=50;
+            betreff="Jubiläum";
+            schnee=false;
+            slider(ro,gr,bl,transparenz);
+        }
+        else if (thema==3){ //Weihnachten
+            ro=0;
+            gr=250;
+            bl=100;
+            ro2=255;
+            gr2=50;
+            bl2=0;
+            transparenz=0;
+            betreff="Weihnachtsfeier";
+            schnee=true;
+            slider(ro,gr,bl,transparenz);
+        }
+                
+        
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jToggleButton1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jToggleButton1ItemStateChanged
+     if (seite==1){
+         seite=2;
+         jToggleButton1.setText("Innenseite ansehen...");
+     }
+     else{
+         seite=1;
+         jToggleButton1.setText("Außenseite ansehen...");
+     }
+        
+    }//GEN-LAST:event_jToggleButton1ItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -582,6 +640,7 @@ public class Einladung extends javax.swing.JFrame {
     }
 
     public void farbe() {
+        
         if (auswahl == 0) {
             ro = jSlider1.getValue();
             gr = jSlider2.getValue();
@@ -603,7 +662,7 @@ public class Einladung extends javax.swing.JFrame {
             jLabel12.setForeground(Color.blue);
             jLabel12.setText(" " + bl2 + "");
         }
-
+        
     }
     
     public void speichern(){
@@ -616,10 +675,26 @@ public class Einladung extends javax.swing.JFrame {
             ImageIO.write(karte, "png", f);
             jLabel14.setForeground(Color.blue);
             jLabel14.setText("Gespeichert in " + f.getParent());
+            gespeichert=true;
         } catch (IOException ex) {
             jLabel14.setForeground(Color.red);
             jLabel14.setText("Problem beim Speichern aufgetreten!");
         }
+    }
+    public void slider(int rs,int gs,int bs,int t){
+            jSlider1.setValue(rs);
+            jSlider2.setValue(gs);
+            jSlider3.setValue(bs);
+            jSlider4.setValue(t);
+            jLabel10.setForeground(Color.red);
+            jLabel10.setText(" " + rs + "");
+            jLabel11.setForeground(Color.green);
+            jLabel11.setText(" " + gs + "");
+            jLabel12.setForeground(Color.blue);
+            jLabel12.setText(" " + bs + "");
+            jLabel9.setForeground(Color.black);
+            jLabel9.setText(" " + t + "");
+            
     }
 
     public static void main(String args[]) {
@@ -692,5 +767,6 @@ public class Einladung extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }
