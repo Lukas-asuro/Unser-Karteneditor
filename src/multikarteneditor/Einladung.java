@@ -38,7 +38,9 @@ public class Einladung extends javax.swing.JFrame {
     int a2 = 200;
     int transparenz = 0;
     int seite=1;
+    
     String betreff=null;
+    String betreff2=null;
     boolean gespeichert=false;
     boolean schnee=false;
     /**
@@ -93,13 +95,13 @@ public class Einladung extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
-        jToggleButton1 = new javax.swing.JToggleButton();
         jPanel2 =  new javax.swing.JPanel(){
             public void paintComponent(Graphics g){
                 super.paintComponent(g);
                 zeichneBild(g);
             }
         };
+        jToggleButton1 = new javax.swing.JToggleButton();
 
         jDialog1.setTitle("Hinweis");
         jDialog1.setBackground(new java.awt.Color(255, 255, 0));
@@ -171,8 +173,10 @@ public class Einladung extends javax.swing.JFrame {
 
         jLabel8.setText("Absender");
 
+        jComboBox1.setMaximumRowCount(4);
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Vorlagen auswählen...", "Geburtstag", "Jubiläum", "Weihnachtsfeier", " " }));
         jComboBox1.setBorder(null);
+        jComboBox1.setLightWeightPopupEnabled(false);
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox1ItemStateChanged(evt);
@@ -255,13 +259,6 @@ public class Einladung extends javax.swing.JFrame {
 
         jButton4.setText("Karte Drucken");
 
-        jToggleButton1.setText("Außenseite ansehen...");
-        jToggleButton1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jToggleButton1ItemStateChanged(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -270,10 +267,7 @@ public class Einladung extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton1)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -297,8 +291,7 @@ public class Einladung extends javax.swing.JFrame {
                                     .addComponent(jTextField6)
                                     .addComponent(jTextField7)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton3)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(12, 12, 12)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -312,7 +305,12 @@ public class Einladung extends javax.swing.JFrame {
                                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel11)
                                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(12, 12, 12)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -321,7 +319,7 @@ public class Einladung extends javax.swing.JFrame {
                                 .addComponent(jButton2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton4))
-                            .addComponent(jToggleButton1))
+                            .addComponent(jButton3))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -355,9 +353,11 @@ public class Einladung extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -377,19 +377,15 @@ public class Einladung extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSlider4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton4))
-                .addGap(9, 9, 9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3)
                 .addContainerGap())
         );
@@ -405,6 +401,13 @@ public class Einladung extends javax.swing.JFrame {
             .addGap(0, 489, Short.MAX_VALUE)
         );
 
+        jToggleButton1.setText("Außenseite ansehen...");
+        jToggleButton1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jToggleButton1ItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -417,7 +420,9 @@ public class Einladung extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(88, 88, 88)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -430,9 +435,11 @@ public class Einladung extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
+                        .addGap(10, 10, 10)
+                        .addComponent(jToggleButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
 
         pack();
@@ -447,17 +454,24 @@ public class Einladung extends javax.swing.JFrame {
         String antwort = jTextField5.getText();
         String tel = jTextField6.getText();
         String absender = jTextField7.getText();
+        int v_x=jPanel2.getWidth()/2;
+        v_x=v_x+20;
+        
         int max = 40;
         int a = 0;
         karte = new BufferedImage(jPanel2.getWidth(), jPanel2.getHeight(), BufferedImage.TYPE_INT_RGB);
         Graphics2D g_karte = karte.createGraphics();
         g_karte.setColor(new Color(ro, gr, bl));
         g_karte.fillRect(0, 0, jPanel2.getWidth(), jPanel2.getHeight());
+        g_karte.setColor(Color.black);
+        g_karte.drawLine(jPanel2.getWidth()/2, 0, jPanel2.getWidth()/2, jPanel2.getHeight());
         
         karte2 = new BufferedImage(jPanel2.getWidth(), jPanel2.getHeight(), BufferedImage.TYPE_INT_RGB);
         Graphics2D g_karte2 = karte2.createGraphics();
         g_karte2.setColor(new Color(ro, gr, bl));
         g_karte2.fillRect(0, 0, jPanel2.getWidth(), jPanel2.getHeight());
+        g_karte2.setColor(Color.black);
+        g_karte2.drawLine(jPanel2.getWidth()/2, 0, jPanel2.getWidth()/2, jPanel2.getHeight());
         
 
         int r = (int) (Math.random() * 120) + 100;  //Konfetti zeichnen
@@ -477,17 +491,13 @@ public class Einladung extends javax.swing.JFrame {
         for (int i = 0; i < 200; i++) {
             int zx = (int) (Math.random() * jPanel2.getWidth()) + 20;
             int zy = (int) (Math.random() * jPanel2.getHeight()) + 20;
-            
             g_karte.fillArc(zx, zy, 6, 6, 0, 360);
         }
-            g_karte.fillRect(0, jPanel2.getHeight()-50, jPanel2.getWidth(), 50);
-            
+        g_karte.setColor(new Color(255, 255, 255, 255));
+        g_karte.fillArc(v_x+150, 300,120, 110, 0, 360);
+        g_karte.fillArc(v_x+150, 200,110, 100, 0, 360);
         }
         
-        
-        
-        
-
         g_karte.setFont(new Font("Arial", Font.PLAIN, 20)); //Text
         g_karte.setColor(Color.blue);
         g_karte.drawString("" + anrede + ",", 50, 40);
@@ -510,6 +520,14 @@ public class Einladung extends javax.swing.JFrame {
         g_karte.setFont(new Font("Vijaya", Font.BOLD, 30));
         g_karte.setColor(Color.blue);
         g_karte.drawString(absender, 50, 280 + a);
+        
+        //Vorderseite
+        
+        g_karte2.setColor(Color.blue);
+        g_karte2.setFont(new Font("Arial", Font.PLAIN, 40));        
+        g_karte2.drawString("Herzliche Einladung", v_x, 100);
+        g_karte2.drawString(""+betreff+"", v_x, 140);
+        g_karte2.drawString(""+betreff2+"", v_x, 180);
 
         jPanel2.repaint();
 
@@ -576,7 +594,8 @@ public class Einladung extends javax.swing.JFrame {
             gr2=100;
             bl2=0;
             transparenz=100;
-            betreff="Geburtstag";
+            betreff="zum";
+            betreff2="Geburtstag";
             schnee=false;
             slider(ro,gr,bl,transparenz);
         }
@@ -588,7 +607,8 @@ public class Einladung extends javax.swing.JFrame {
             gr2=50;
             bl2=0;
             transparenz=50;
-            betreff="Jubiläum";
+            betreff="zum";
+            betreff2="Jubiläum";
             schnee=false;
             slider(ro,gr,bl,transparenz);
         }
@@ -600,7 +620,8 @@ public class Einladung extends javax.swing.JFrame {
             gr2=50;
             bl2=0;
             transparenz=0;
-            betreff="Weihnachtsfeier";
+            betreff="zur";
+            betreff2="Weihnachtsfeier";
             schnee=true;
             slider(ro,gr,bl,transparenz);
         }
@@ -617,7 +638,7 @@ public class Einladung extends javax.swing.JFrame {
          seite=1;
          jToggleButton1.setText("Außenseite ansehen...");
      }
-        
+        jPanel2.repaint();
     }//GEN-LAST:event_jToggleButton1ItemStateChanged
 
     /**
@@ -627,8 +648,12 @@ public class Einladung extends javax.swing.JFrame {
         if (karte != null) {
             int w = jPanel2.getWidth();
             int h = jPanel2.getHeight();
-
+            if(seite==1){
             g.drawImage(karte, 0, 0, w, h, this);
+            }
+            else{
+                g.drawImage(karte2, 0, 0, w, h, this);
+            }
         } else {
             System.out.println(jPanel2.getWidth());
             System.out.println(jPanel2.getHeight());
