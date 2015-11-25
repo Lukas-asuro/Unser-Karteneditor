@@ -22,6 +22,7 @@ public class BildEffekte extends javax.swing.JFrame {
 
     BufferedImage bildoriginal = null;
     BufferedImage bildbearbeitet = null;
+    BufferedImage b=null;
     int x = 0;
     int y = 0;
     int bl = 0;
@@ -72,6 +73,8 @@ public class BildEffekte extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,6 +91,12 @@ public class BildEffekte extends javax.swing.JFrame {
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox1ItemStateChanged(evt);
+            }
+        });
+
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jPanel1MouseMoved(evt);
             }
         });
 
@@ -128,6 +137,13 @@ public class BildEffekte extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setText("Zurücksetzen");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -145,11 +161,14 @@ public class BildEffekte extends javax.swing.JFrame {
                                         .addComponent(jButton2))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(38, 38, 38)
-                                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton4)))
                             .addComponent(jLabel1))
                         .addGap(0, 50, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -174,7 +193,11 @@ public class BildEffekte extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jButton4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -203,6 +226,7 @@ public class BildEffekte extends javax.swing.JFrame {
                 bildbearbeitet = ImageIO.read(new File(pfad));
 
                 bildoriginal = bildbearbeitet;
+                b=bildoriginal;
                 jPanel1.repaint();
                 jPanel2.repaint();
                 jLabel1.setForeground(Color.blue);
@@ -226,18 +250,40 @@ public class BildEffekte extends javax.swing.JFrame {
             rof=255;
             grf=255;
             blf=255;
-            jLabel2.setText("Weiß");
+            jLabel2.setText("Whitescreen");
+        }
+        else if(auswahl==2){
+            rof=255;
+            grf=0;
+            blf=0;
+            jLabel2.setText("Redscreen");
+        }
+        
+            else if(auswahl==3){
+            rof=0;
+            grf=255;
+            blf=0;
+            jLabel2.setText("Greenscreen");
+        }
+        else if(auswahl==4){
+            rof=0;
+            grf=0;
+            blf=255;
+            jLabel2.setText("Bluescreen");
         }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
        if(bildoriginal!=null){
-        Graphics2D g_b = bildoriginal.createGraphics();
-        Graphics2D g_b2 = bildbearbeitet.createGraphics();
         
+        Graphics2D g_b2 = bildbearbeitet.createGraphics();
+        x=0;
+        y=0;
         //Ausstanzen
         
-        for (int i = 0; i < (jPanel1.getHeight() * jPanel1.getWidth()); i++) {
+        for (int i = 0; i < (bildbearbeitet.getHeight() * bildbearbeitet.getWidth()); i++) {
+            //System.out.print(""+x+", ");
+            //System.out.println(y);
             int co = bildoriginal.getRGB(x, y);
             Color c = new Color(co);
             bl = c.getBlue();
@@ -249,27 +295,59 @@ public class BildEffekte extends javax.swing.JFrame {
             df = (int)Math.sqrt((d1 * d1) + (d2 * d2) + (d3 * d3)); //"Abstand" zur Filterfarbe berechen
             
             if (df <= filter) {
-               g_b2.setColor(Color.RED);
-               g_b2.drawLine(x, y, 1, 1);
-                jPanel2.repaint();
+               g_b2.setColor(Color.YELLOW);
+              g_b2.drawRect(x-1, y-1, 1, 1);
+               
             }
             else{
-               g_b2.setColor(Color.GREEN);
-               g_b2.drawLine(x, y, 1, 1); //andere als Filterfarbe
-                jPanel2.repaint();
+               //g_b2.setColor(Color.GREEN);
+               //g_b2.drawRect(x-1,y-1,1,1); //andere als Filterfarbe
+               // jPanel2.repaint();
             }
             x++;
-            if (x == 186) {
+            if (x == bildbearbeitet.getWidth()) {
                 x = 0;
                 y++;
             }
-
-        System.out.print(""+x+", ");
-        System.out.println(y);
+            
+        
         }
-       
+       jPanel2.repaint();
        }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jPanel1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseMoved
+                if(bildoriginal!=null){
+                
+                x=evt.getX();
+                y=evt.getY();
+       int co = bildoriginal.getRGB(x, y);
+            Color c = new Color(co);
+            bl = c.getBlue();
+            gr = c.getGreen();
+            ro = c.getRed();
+            d1 = ro - rof;
+            d2 = gr - grf;
+            d3 = bl - blf;
+            df = (int)Math.sqrt((d1 * d1) + (d2 * d2) + (d3 * d3)); //"Abstand" zur Filterfarbe berechen
+            
+            if (df <= filter) {
+               jLabel4.setText("Ausstanzen");
+               
+            }
+            else{
+                jLabel4.setText("Beibehalten");
+               
+            }
+            jPanel1.repaint();
+                }
+    }//GEN-LAST:event_jPanel1MouseMoved
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+bildbearbeitet=b;
+bildoriginal=b;
+jPanel2.repaint();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
                     /**
                      * @param args the command line arguments
@@ -311,8 +389,8 @@ public class BildEffekte extends javax.swing.JFrame {
             int w = jPanel2.getWidth();
             int hoeheneu = bildbearbeitet.getHeight() * w / bildbearbeitet.getWidth();
             System.out.println("Maße des Bildes original: " + bildbearbeitet.getWidth() + " " + bildbearbeitet.getHeight() + " , nach Anpassung: " + w + " " + hoeheneu);
-            
             g.drawImage(bildbearbeitet, 0, 0, w, hoeheneu, this);
+            jPanel2.setSize(w,hoeheneu);
         } else {
             g.setColor(new Color(10, 10, 100));
             g.fillRect(0, 0, jPanel2.getWidth(), jPanel2.getHeight());
@@ -323,7 +401,7 @@ public class BildEffekte extends javax.swing.JFrame {
             int w = jPanel1.getWidth();
             int hoeheneu = bildoriginal.getHeight() * w / bildoriginal.getWidth();
             System.out.println("Maße des Bildes original: " + bildoriginal.getWidth() + " " + bildoriginal.getHeight() + " , nach Anpassung: " + w + " " + hoeheneu);
-            
+            jPanel1.setSize(w, hoeheneu);
             g.drawImage(bildoriginal, 0, 0, w, hoeheneu, this);
            
         } else {
@@ -336,10 +414,12 @@ public class BildEffekte extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSlider jSlider1;
