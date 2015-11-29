@@ -102,6 +102,8 @@ public class Einladung extends javax.swing.JFrame {
             }
         };
         jToggleButton1 = new javax.swing.JToggleButton();
+        jButton7 = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
 
         jDialog1.setTitle("Hinweis");
         jDialog1.setBackground(new java.awt.Color(255, 255, 0));
@@ -408,11 +410,20 @@ public class Einladung extends javax.swing.JFrame {
             }
         });
 
+        jButton7.setText("Bild einfügen");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setText("jLabel16");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -421,6 +432,10 @@ public class Einladung extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(88, 88, 88)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton7)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel16))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jToggleButton1))
                 .addContainerGap())
@@ -439,7 +454,11 @@ public class Einladung extends javax.swing.JFrame {
                         .addComponent(jToggleButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton7)
+                    .addComponent(jLabel16))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         pack();
@@ -483,48 +502,54 @@ public class Einladung extends javax.swing.JFrame {
             int zy = (int) (Math.random() * jPanel2.getHeight()) + 20;
             g_karte.setColor(new Color(zr, zg, zb, transparenz));
             g_karte.fillArc(zx, zy, 10, 10, 0, 360);
+            g_karte2.setColor(new Color(zr, zg, zb, transparenz));
+            g_karte2.fillArc(zx, zy, 10, 10, 0, 360);
         }
         
         if(schnee){
               //Schnee zeichnen
             g_karte.setColor(new Color(255, 255, 255, 200));
+            g_karte2.setColor(new Color(255, 255, 255, 200));
         for (int i = 0; i < 200; i++) {
             int zx = (int) (Math.random() * jPanel2.getWidth()) + 20;
             int zy = (int) (Math.random() * jPanel2.getHeight()) + 20;
             g_karte.fillArc(zx, zy, 6, 6, 0, 360);
+            g_karte2.fillArc(zx, zy, 6, 6, 0, 360);
         }
         g_karte.setColor(new Color(255, 255, 255, 255));
-        g_karte.fillArc(v_x+150, 300,120, 110, 0, 360);
-        g_karte.fillArc(v_x+150, 200,110, 100, 0, 360);
+        g_karte.fillArc(150, 300,120, 110, 0, 360);
+        g_karte.fillArc(150, 200,110, 100, 0, 360);
+        g_karte.fillArc(150, 120,100, 80, 0, 360);
+        
         }
         
         g_karte.setFont(new Font("Arial", Font.PLAIN, 20)); //Text
         g_karte.setColor(Color.blue);
-        g_karte.drawString("" + anrede + ",", 50, 40);
+        g_karte.drawString("" + anrede + ",", v_x+50, 40);
         int laenge = text.length();
         if (laenge > max) {
             text2 = text.substring(max, laenge);
             text = text.substring(0, max);
-            g_karte.drawString("" + text + "-", 50, 80);
-            g_karte.drawString("" + text2 + ".", 50, 120);
+            g_karte.drawString("" + text + "-", v_x+50, 80);
+            g_karte.drawString("" + text2 + ".", v_x+50, 120);
             a = 40;
         } else {
-            g_karte.drawString("" + text + ".", 50, 80);
+            g_karte.drawString("" + text + ".", v_x+50, 80);
         }
 
         g_karte.setColor(Color.red);
-        g_karte.drawString("Wann: Am " + wann + "", 80, 120 + a);
-        g_karte.drawString("Wo: " + wo + "", 80, 160 + a);
-        g_karte.drawString("U.A.w.g. bis zum " + antwort + "", 80, 200 + a);
-        g_karte.drawString("Tel.: " + tel + "", 80, 240 + a);
+        g_karte.drawString("Wann: Am " + wann + "", v_x+80, 120 + a);
+        g_karte.drawString("Wo: " + wo + "", v_x+80, 160 + a);
+        g_karte.drawString("U.A.w.g. bis zum " + antwort + "", v_x+80, 200 + a);
+        g_karte.drawString("Tel.: " + tel + "", v_x+80, 240 + a);
         g_karte.setFont(new Font("Vijaya", Font.BOLD, 30));
         g_karte.setColor(Color.blue);
-        g_karte.drawString(absender, 50, 280 + a);
+        g_karte.drawString(absender, v_x+50, 280 + a);
         
         //Vorderseite
         
         g_karte2.setColor(Color.blue);
-        g_karte2.setFont(new Font("Arial", Font.PLAIN, 40));        
+        g_karte2.setFont(new Font("Vijaya", Font.PLAIN, 40));        
         g_karte2.drawString("Herzliche Einladung", v_x, 100);
         g_karte2.drawString(""+betreff+"", v_x, 140);
         g_karte2.drawString(""+betreff2+"", v_x, 180);
@@ -640,6 +665,12 @@ public class Einladung extends javax.swing.JFrame {
      }
         jPanel2.repaint();
     }//GEN-LAST:event_jToggleButton1ItemStateChanged
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+         BildEffekte f=new BildEffekte();
+        f.setVisible(true);  
+        
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -761,6 +792,7 @@ public class Einladung extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JDialog jDialog1;
@@ -771,6 +803,7 @@ public class Einladung extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
