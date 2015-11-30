@@ -23,7 +23,7 @@ import javax.swing.JFileChooser;
 public class Einladung extends javax.swing.JFrame {
 
     BufferedImage karte = null;
-    BufferedImage karte2=null;
+    BufferedImage karte2 = null;
     int ro = 0;
     int gr = 0;
     int bl = 0;
@@ -37,17 +37,18 @@ public class Einladung extends javax.swing.JFrame {
     int a1 = 260;
     int a2 = 200;
     int transparenz = 0;
-    int seite=1;
-    
-    String betreff=null;
-    String betreff2=null;
-    boolean gespeichert=false;
-    boolean schnee=false;
-    
+    int seite = 1;
+
+    String betreff = null;
+    String betreff2 = null;
+    String schrift = "Arial";
+    boolean gespeichert = false;
+    boolean schnee = false;
+
     // Für Bildeffekte:
     BufferedImage bildoriginal = null;
     BufferedImage bildbearbeitet = null;
-    BufferedImage b=null;
+    BufferedImage b = null;
     int x = 0;
     int y = 0;
     int bl3 = 0;
@@ -60,7 +61,10 @@ public class Einladung extends javax.swing.JFrame {
     int d1 = 0;
     int d2 = 0;
     int d3 = 0;
-    int filter=0;
+    int filter = 0;
+    int x_bild = 100;
+    int y_bild = 100;
+
     /**
      * Creates new form Einladung
      */
@@ -102,7 +106,6 @@ public class Einladung extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
         jComboBox3 = new javax.swing.JComboBox();
         jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -219,7 +222,7 @@ public class Einladung extends javax.swing.JFrame {
             .addGap(0, 250, Short.MAX_VALUE)
         );
 
-        jSlider5.setMaximum(200);
+        jSlider5.setMaximum(300);
         jSlider5.setValue(0);
         jSlider5.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -227,7 +230,7 @@ public class Einladung extends javax.swing.JFrame {
             }
         });
 
-        jLabel17.setText("Weiß");
+        jLabel17.setText("Whitescreen");
 
         jLabel18.setText("0");
 
@@ -254,8 +257,6 @@ public class Einladung extends javax.swing.JFrame {
 
         jLabel19.setText("Filterfarbe:");
 
-        jLabel16.setText("jLabel16");
-
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
         jFrame1Layout.setHorizontalGroup(
@@ -264,60 +265,50 @@ public class Einladung extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jFrame1Layout.createSequentialGroup()
-                        .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jFrame1Layout.createSequentialGroup()
-                                .addGap(0, 46, Short.MAX_VALUE)
-                                .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel20)
-                                    .addGroup(jFrame1Layout.createSequentialGroup()
-                                        .addComponent(jLabel17)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jSlider5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jFrame1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel18)
-                                .addGap(29, 29, 29)
-                                .addComponent(jButton10)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jFrame1Layout.createSequentialGroup()
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 32, Short.MAX_VALUE))))
-                    .addGroup(jFrame1Layout.createSequentialGroup()
                         .addComponent(jButton8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel19)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jFrame1Layout.createSequentialGroup()
+                            .addComponent(jLabel17)
+                            .addGap(27, 27, 27)
+                            .addComponent(jSlider5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButton10))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jFrame1Layout.createSequentialGroup()
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         jFrame1Layout.setVerticalGroup(
             jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jFrame1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton8)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel20)
-                .addGap(10, 10, 10)
-                .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton10)
-                            .addComponent(jLabel18))
-                        .addComponent(jSlider5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel17))
-                .addContainerGap(25, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSlider5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton10)
+                        .addComponent(jLabel18)))
+                .addContainerGap())
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -338,8 +329,8 @@ public class Einladung extends javax.swing.JFrame {
 
         jLabel8.setText("Absender");
 
-        jComboBox1.setMaximumRowCount(4);
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Vorlagen auswählen...", "Geburtstag", "Jubiläum", "Weihnachtsfeier", " " }));
+        jComboBox1.setMaximumRowCount(6);
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Vorlagen auswählen...", "Geburtstag", "Jubiläum", "Weihnachtsfeier", "Party", "Weiß", " " }));
         jComboBox1.setBorder(null);
         jComboBox1.setLightWeightPopupEnabled(false);
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
@@ -555,6 +546,12 @@ public class Einladung extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -629,25 +626,24 @@ public class Einladung extends javax.swing.JFrame {
         String antwort = jTextField5.getText();
         String tel = jTextField6.getText();
         String absender = jTextField7.getText();
-        int v_x=jPanel2.getWidth()/2;
-        v_x=v_x+20;
-        
+        int v_x = jPanel2.getWidth() / 2;
+        v_x = v_x + 20;
+
         int max = 40;
         int a = 0;
         karte = new BufferedImage(jPanel2.getWidth(), jPanel2.getHeight(), BufferedImage.TYPE_INT_RGB);
         Graphics2D g_karte = karte.createGraphics();
         g_karte.setColor(new Color(ro, gr, bl));
         g_karte.fillRect(0, 0, jPanel2.getWidth(), jPanel2.getHeight());
-        g_karte.setColor(Color.black);
-        g_karte.drawLine(jPanel2.getWidth()/2, 0, jPanel2.getWidth()/2, jPanel2.getHeight());
-        
+        g_karte.setColor(new Color(0, 0, 0, 100));
+        g_karte.drawLine(jPanel2.getWidth() / 2, 0, jPanel2.getWidth() / 2, jPanel2.getHeight());
+
         karte2 = new BufferedImage(jPanel2.getWidth(), jPanel2.getHeight(), BufferedImage.TYPE_INT_RGB);
         Graphics2D g_karte2 = karte2.createGraphics();
         g_karte2.setColor(new Color(ro, gr, bl));
         g_karte2.fillRect(0, 0, jPanel2.getWidth(), jPanel2.getHeight());
-        g_karte2.setColor(Color.black);
-        g_karte2.drawLine(jPanel2.getWidth()/2, 0, jPanel2.getWidth()/2, jPanel2.getHeight());
-        
+        g_karte2.setColor(new Color(0, 0, 0, 100));
+        g_karte2.drawLine(jPanel2.getWidth() / 2, 0, jPanel2.getWidth() / 2, jPanel2.getHeight());
 
         int r = (int) (Math.random() * 120) + 100;  //Konfetti zeichnen
         for (int i = 0; i < r; i++) {
@@ -661,88 +657,95 @@ public class Einladung extends javax.swing.JFrame {
             g_karte2.setColor(new Color(zr, zg, zb, transparenz));
             g_karte2.fillArc(zx, zy, 10, 10, 0, 360);
         }
-        
-        if(schnee){
-              //Schnee zeichnen
+
+        if (schnee) {
+            //Schnee zeichnen
             g_karte.setColor(new Color(255, 255, 255, 200));
             g_karte2.setColor(new Color(255, 255, 255, 200));
-        for (int i = 0; i < 200; i++) {
-            int zx = (int) (Math.random() * jPanel2.getWidth()) + 20;
-            int zy = (int) (Math.random() * jPanel2.getHeight()) + 20;
-            g_karte.fillArc(zx, zy, 6, 6, 0, 360);
-            g_karte2.fillArc(zx, zy, 6, 6, 0, 360);
+            for (int i = 0; i < 200; i++) {
+                int zx = (int) (Math.random() * jPanel2.getWidth()) + 20;
+                int zy = (int) (Math.random() * jPanel2.getHeight()) + 20;
+                g_karte.fillArc(zx, zy, 6, 6, 0, 360);
+                g_karte2.fillArc(zx, zy, 6, 6, 0, 360);
+            }
+
         }
-        
-        
-        }
-        
+
         g_karte.setFont(new Font("Arial", Font.PLAIN, 20)); //Text
         g_karte.setColor(Color.blue);
-        g_karte.drawString("" + anrede + ",", v_x+50, 40);
+        g_karte.drawString("" + anrede + ",", v_x + 50, 80);
         int laenge = text.length();
         if (laenge > max) {
             text2 = text.substring(max, laenge);
             text = text.substring(0, max);
-            g_karte.drawString("" + text + "-", v_x+50, 80);
-            g_karte.drawString("" + text2 + ".", v_x+50, 120);
+            g_karte.drawString("" + text + "-", v_x + 50, 120);
+            g_karte.drawString("" + text2 + ".", v_x + 50, 160);
             a = 40;
         } else {
-            g_karte.drawString("" + text + ".", v_x+50, 80);
+            g_karte.drawString("" + text + ".", v_x + 50, 120);
         }
 
         g_karte.setColor(Color.red);
-        g_karte.drawString("Wann: Am " + wann + "", v_x+80, 120 + a);
-        g_karte.drawString("Wo: " + wo + "", v_x+80, 160 + a);
-        g_karte.drawString("U.A.w.g. bis zum " + antwort + "", v_x+80, 200 + a);
-        g_karte.drawString("Tel.: " + tel + "", v_x+80, 240 + a);
-        g_karte.setFont(new Font("Vijaya", Font.BOLD, 30));
+        g_karte.drawString("Wann: Am " + wann + "", v_x + 80, 160 + a);
+        g_karte.drawString("Wo: " + wo + "", v_x + 80, 200 + a);
+        g_karte.drawString("U.A.w.g. bis zum " + antwort + "", v_x + 80, 240 + a);
+        g_karte.drawString("Tel.: " + tel + "", v_x + 80, 300 + a);
+        g_karte.setFont(new Font(schrift, Font.BOLD, 30));
         g_karte.setColor(Color.blue);
-        g_karte.drawString(absender, v_x+50, 280 + a);
-        
-        //Vorderseite
-        
-        g_karte2.setColor(Color.blue);
-        g_karte2.setFont(new Font("Vijaya", Font.PLAIN, 40));        
-        g_karte2.drawString("Herzliche Einladung", v_x, 100);
-        g_karte2.drawString(""+betreff+"", v_x, 140);
-        g_karte2.drawString(""+betreff2+"", v_x, 180);
-        
-        //Bild nachträglichen Farbanpassungen anpassen
-        if(bildbearbeitet!=null){
-        
-        Graphics2D g_b2 = bildbearbeitet.createGraphics();
-        x=0;
-        y=0;
-        for (int i = 0; i < (bildbearbeitet.getHeight() * bildbearbeitet.getWidth()); i++) {
-            //System.out.print(""+x+", ");
-            //System.out.println(y);
-            int co = bildoriginal.getRGB(x, y);
-            Color c = new Color(co);
-            bl3 = c.getBlue();
-            gr3 = c.getGreen();
-            ro3 = c.getRed();
-            d1 = ro3 - rof;
-            d2 = gr3 - grf;
-            d3 = bl3 - blf;
-            df = (int)Math.sqrt((d1 * d1) + (d2 * d2) + (d3 * d3)); //"Abstand" zur Filterfarbe berechen
-            
-            if (df <= filter) {
-               g_b2.setColor(new Color(ro,gr,bl));
-              g_b2.drawRect(x-1, y-1, 1, 1);
-               
-            }
-            x++;
-            if (x == bildbearbeitet.getWidth()) {
-                x = 0;
-                y++;
-            }
-        }
-        g_karte2.drawImage(bildbearbeitet, 100, 200, rootPane);
-       }
-        
-        //Bild einfügen
-        
+        g_karte.drawString(absender, v_x + 50, 340 + a);
 
+        //Vorderseite
+        g_karte2.setColor(Color.blue);
+        g_karte2.setFont(new Font(schrift, Font.PLAIN, 40));
+        g_karte2.drawString("Herzliche Einladung", v_x + 50, 200);
+        g_karte2.drawString("" + betreff + "", v_x + 50, 240);
+        g_karte2.drawString("" + betreff2 + "", v_x + 50, 280);
+
+        //Rahmen zeichnen
+        int g = 20;
+        g_karte.setColor(new Color(ro2, gr2, bl2));
+        g_karte.setStroke(new BasicStroke(5));
+        g_karte.drawRect(g, g, jPanel2.getWidth() - (v_x + g), jPanel2.getHeight() - 2 * g);
+        g_karte.drawRect(v_x, g, jPanel2.getWidth() - (v_x + g), jPanel2.getHeight() - 2 * g);
+        g_karte2.setColor(new Color(ro2, gr2, bl2));
+        g_karte2.setStroke(new BasicStroke(5));
+        g_karte2.drawRect(g, g, jPanel2.getWidth() - (v_x + g), jPanel2.getHeight() - 2 * g);
+        g_karte2.drawRect(v_x, g, jPanel2.getWidth() - (v_x + g), jPanel2.getHeight() - 2 * g);
+
+        //Bild nachträglichen Farbanpassungen anpassen
+        if (bildbearbeitet != null) {
+
+            Graphics2D g_b2 = bildbearbeitet.createGraphics();
+            x = 0;
+            y = 0;
+            for (int i = 0; i < (bildbearbeitet.getHeight() * bildbearbeitet.getWidth()); i++) {
+
+                int co = bildoriginal.getRGB(x, y);
+                Color c = new Color(co);
+                bl3 = c.getBlue();
+                gr3 = c.getGreen();
+                ro3 = c.getRed();
+                d1 = ro3 - rof;
+                d2 = gr3 - grf;
+                d3 = bl3 - blf;
+                df = (int) Math.sqrt((d1 * d1) + (d2 * d2) + (d3 * d3)); //"Abstand" zur Filterfarbe berechen
+
+                if (df <= filter) {
+                    g_b2.setColor(new Color(ro, gr, bl));
+                    g_b2.drawRect(x - 1, y - 1, 1, 1);
+
+                }
+                x++;
+                if (x == bildbearbeitet.getWidth()) {
+                    x = 0;
+                    y++;
+                }
+            }
+            int hoeheneu = bildbearbeitet.getHeight() * 200 / bildbearbeitet.getWidth();
+            g_karte2.drawImage(bildbearbeitet, x_bild, y_bild, 200, hoeheneu, this);
+        }
+
+        //Bild einfügen
         jPanel2.repaint();
 
 
@@ -763,9 +766,9 @@ public class Einladung extends javax.swing.JFrame {
     private void jComboBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox2ItemStateChanged
         auswahl = jComboBox2.getSelectedIndex();
         if (auswahl == 0) {
-            slider(ro,gr,bl,transparenz);
+            slider(ro, gr, bl, transparenz);
         } else if (auswahl == 1) {
-            slider(ro2,gr2,bl2,transparenz);
+            slider(ro2, gr2, bl2, transparenz);
         }
     }//GEN-LAST:event_jComboBox2ItemStateChanged
 
@@ -775,14 +778,13 @@ public class Einladung extends javax.swing.JFrame {
     }//GEN-LAST:event_jSlider4StateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       speichern();
+        speichern();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if(gespeichert){
-        System.exit(0);
-        }
-        else{
+        if (gespeichert) {
+            System.exit(0);
+        } else {
             jDialog1.setVisible(true);
             jDialog1.setSize(600, 100);
             jDialog1.setTitle("WARNUNG");
@@ -791,7 +793,7 @@ public class Einladung extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -799,72 +801,98 @@ public class Einladung extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
-        int thema=jComboBox1.getSelectedIndex();
-        if(thema==1){ //Geburtstag
-            ro=250;
-            gr=250;
-            bl=0;
-            ro2=255;
-            gr2=100;
-            bl2=0;
-            transparenz=100;
-            betreff="zum";
-            betreff2="Geburtstag";
-            schnee=false;
-            slider(ro,gr,bl,transparenz);
+        int thema = jComboBox1.getSelectedIndex();
+        if (thema == 1) { //Geburtstag
+            ro = 250;
+            gr = 250;
+            bl = 0;
+            ro2 = 255;
+            gr2 = 100;
+            bl2 = 0;
+            transparenz = 100;
+            betreff = "zum";
+            betreff2 = "Geburtstag";
+            schnee = false;
+            schrift = "Vijaya";
+            slider(ro, gr, bl, transparenz);
+        } else if (thema == 2) { //Jubiläum
+            ro = 250;
+            gr = 250;
+            bl = 200;
+            ro2 = 255;
+            gr2 = 50;
+            bl2 = 0;
+            transparenz = 50;
+            betreff = "zum";
+            betreff2 = "Jubiläum";
+            schnee = false;
+            schrift = "Arial";
+            slider(ro, gr, bl, transparenz);
+        } else if (thema == 3) { //Weihnachten
+            ro = 0;
+            gr = 250;
+            bl = 100;
+            ro2 = 255;
+            gr2 = 50;
+            bl2 = 0;
+            transparenz = 0;
+            betreff = "zur";
+            betreff2 = "Weihnachtsfeier";
+            schnee = true;
+            schrift = "Vijaya";
+            slider(ro, gr, bl, transparenz);
+        } else if (thema == 4) { //Party
+            ro = 230;
+            gr = 255;
+            bl = 40;
+            ro2 = 255;
+            gr2 = 50;
+            bl2 = 0;
+            transparenz = 150;
+            betreff = "zur";
+            betreff2 = "Party";
+            schnee = false;
+            schrift = "Square721 BT";
+            slider(ro, gr, bl, transparenz);
+        } else if (thema == 5) { //Weiß
+            ro = 255;
+            gr = 255;
+            bl = 255;
+            ro2 = 255;
+            gr2 = 50;
+            bl2 = 0;
+            transparenz = 0;
+            betreff = "";
+            betreff2 = "";
+            schnee = false;
+            schrift = "Arial";
+            slider(ro, gr, bl, transparenz);
         }
-        else if (thema==2){ //Jubiläum
-            ro=250;
-            gr=250;
-            bl=200;
-            ro2=255;
-            gr2=50;
-            bl2=0;
-            transparenz=50;
-            betreff="zum";
-            betreff2="Jubiläum";
-            schnee=false;
-            slider(ro,gr,bl,transparenz);
-        }
-        else if (thema==3){ //Weihnachten
-            ro=0;
-            gr=250;
-            bl=100;
-            ro2=255;
-            gr2=50;
-            bl2=0;
-            transparenz=0;
-            betreff="zur";
-            betreff2="Weihnachtsfeier";
-            schnee=true;
-            slider(ro,gr,bl,transparenz);
-        }
-                
-        
+
+
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jToggleButton1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jToggleButton1ItemStateChanged
-     if (seite==1){
-         seite=2;
-         jToggleButton1.setText("Innenseite ansehen...");
-     }
-     else{
-         seite=1;
-         jToggleButton1.setText("Außenseite ansehen...");
-     }
+        if (seite == 1) {
+            seite = 2;
+            jToggleButton1.setText("Innenseite ansehen...");
+        } else {
+            seite = 1;
+            jToggleButton1.setText("Außenseite ansehen...");
+        }
         jPanel2.repaint();
     }//GEN-LAST:event_jToggleButton1ItemStateChanged
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-         // Bildeffekte starten
-            jFrame1.setVisible(true);
-            jFrame1.setSize(600, 500);
-            jFrame1.repaint();
-        
+        // Bildeffekte starten
+        jFrame1.setVisible(true);
+        jFrame1.setSize(600, 500);
+        jFrame1.repaint();
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-       final JFileChooser fc = new JFileChooser();
+        final JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File("/"));
 
         int zahl = fc.showOpenDialog(this);
@@ -877,95 +905,94 @@ public class Einladung extends javax.swing.JFrame {
                 bildbearbeitet = ImageIO.read(new File(pfad));
 
                 bildoriginal = bildbearbeitet;
-                b=bildoriginal;
+                b = bildoriginal;
                 jPanel3.repaint();
                 jPanel4.repaint();
-                jLabel20.setForeground(Color.blue);
-                jLabel20.setText("Laden der Datei erfolgreich");
+
             } catch (IOException ex) {
-                jLabel20.setForeground(Color.red);
-                jLabel20.setText("Fehler aufgetreten beim Lesen der Datei");
+                jLabel16.setForeground(Color.red);
+                jLabel16.setText("Fehler aufgetreten beim Lesen der Datei");
             }
         }
 
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jSlider5StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider5StateChanged
-       filter = jSlider5.getValue();
-         jLabel18.setText(""+filter+"");
+        filter = jSlider5.getValue();
+        jLabel18.setText("" + filter + "");
     }//GEN-LAST:event_jSlider5StateChanged
 
     private void jComboBox3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox3ItemStateChanged
-        int auswahl=jComboBox3.getSelectedIndex();
-        if(auswahl==0){
-            rof=255;
-            grf=255;
-            blf=255;
+        int auswahl = jComboBox3.getSelectedIndex();
+        if (auswahl == 0) {
+            rof = 255;
+            grf = 255;
+            blf = 255;
             jLabel17.setText("Whitescreen");
-        }
-        else if(auswahl==1){
-            rof=255;
-            grf=0;
-            blf=0;
+        } else if (auswahl == 1) {
+            rof = 255;
+            grf = 0;
+            blf = 0;
             jLabel17.setText("Redscreen");
-        }
-        
-            else if(auswahl==2){
-            rof=0;
-            grf=255;
-            blf=0;
+        } else if (auswahl == 2) {
+            rof = 0;
+            grf = 255;
+            blf = 0;
             jLabel17.setText("Greenscreen");
-        }
-        else if(auswahl==3){
-            rof=0;
-            grf=0;
-            blf=255;
+        } else if (auswahl == 3) {
+            rof = 0;
+            grf = 0;
+            blf = 255;
             jLabel17.setText("Bluescreen");
         }
     }//GEN-LAST:event_jComboBox3ItemStateChanged
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        if(bildoriginal!=null){
-        
-        Graphics2D g_b2 = bildbearbeitet.createGraphics();
-        x=0;
-        y=0;
+        if (bildoriginal != null) {
+
+            Graphics2D g_b2 = bildbearbeitet.createGraphics();
+            x = 0;
+            y = 0;
         //Ausstanzen
-        
-        for (int i = 0; i < (bildbearbeitet.getHeight() * bildbearbeitet.getWidth()); i++) {
+
+            for (int i = 0; i < (bildbearbeitet.getHeight() * bildbearbeitet.getWidth()); i++) {
             //System.out.print(""+x+", ");
-            //System.out.println(y);
-            int co = bildoriginal.getRGB(x, y);
-            Color c = new Color(co);
-            bl3 = c.getBlue();
-            gr3 = c.getGreen();
-            ro3 = c.getRed();
-            d1 = ro3 - rof;
-            d2 = gr3 - grf;
-            d3 = bl3 - blf;
-            df = (int)Math.sqrt((d1 * d1) + (d2 * d2) + (d3 * d3)); //"Abstand" zur Filterfarbe berechen
-            
-            if (df <= filter) {
-               g_b2.setColor(new Color(ro,gr,bl));
-              g_b2.drawRect(x-1, y-1, 1, 1);
-               
-            }
-            else{
+                //System.out.println(y);
+                int co = bildoriginal.getRGB(x, y);
+                Color c = new Color(co);
+                bl3 = c.getBlue();
+                gr3 = c.getGreen();
+                ro3 = c.getRed();
+                d1 = ro3 - rof;
+                d2 = gr3 - grf;
+                d3 = bl3 - blf;
+                df = (int) Math.sqrt((d1 * d1) + (d2 * d2) + (d3 * d3)); //"Abstand" zur Filterfarbe berechen
+
+                if (df <= filter) {
+                    g_b2.setColor(new Color(ro, gr, bl));
+                    g_b2.drawRect(x - 1, y - 1, 1, 1);
+
+                } else {
                //g_b2.setColor(Color.GREEN);
-               //g_b2.drawRect(x-1,y-1,1,1); //andere als Filterfarbe
-               // jPanel2.repaint();
+                    //g_b2.drawRect(x-1,y-1,1,1); //andere als Filterfarbe
+                    // jPanel2.repaint();
+                }
+                x++;
+                if (x == bildbearbeitet.getWidth()) {
+                    x = 0;
+                    y++;
+                }
+
             }
-            x++;
-            if (x == bildbearbeitet.getWidth()) {
-                x = 0;
-                y++;
-            }
-            
-        
+
+            jPanel4.repaint();
         }
-       jPanel4.repaint();
-       }
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+        x_bild = evt.getX();
+        y_bild = evt.getY();
+    }//GEN-LAST:event_jPanel2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -974,10 +1001,9 @@ public class Einladung extends javax.swing.JFrame {
         if (karte != null) {
             int w = jPanel2.getWidth();
             int h = jPanel2.getHeight();
-            if(seite==1){
-            g.drawImage(karte, 0, 0, w, h, this);
-            }
-            else{
+            if (seite == 1) {
+                g.drawImage(karte, 0, 0, w, h, this);
+            } else {
                 g.drawImage(karte2, 0, 0, w, h, this);
             }
         } else {
@@ -991,7 +1017,7 @@ public class Einladung extends javax.swing.JFrame {
     }
 
     public void farbe() {
-        
+
         if (auswahl == 0) {
             ro = jSlider1.getValue();
             gr = jSlider2.getValue();
@@ -1013,11 +1039,11 @@ public class Einladung extends javax.swing.JFrame {
             jLabel12.setForeground(Color.blue);
             jLabel12.setText(" " + bl2 + "");
         }
-        
+
     }
-    
-    public void speichern(){
-         final JFileChooser fc = new JFileChooser();
+
+    public void speichern() {
+        final JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File("/"));
         int zahl = fc.showSaveDialog(this);
         File f = fc.getSelectedFile();
@@ -1026,26 +1052,27 @@ public class Einladung extends javax.swing.JFrame {
             ImageIO.write(karte, "png", f);
             jLabel14.setForeground(Color.blue);
             jLabel14.setText("Gespeichert in " + f.getParent());
-            gespeichert=true;
+            gespeichert = true;
         } catch (IOException ex) {
             jLabel14.setForeground(Color.red);
             jLabel14.setText("Problem beim Speichern aufgetreten!");
         }
     }
-    public void slider(int rs,int gs,int bs,int t){
-            jSlider1.setValue(rs);
-            jSlider2.setValue(gs);
-            jSlider3.setValue(bs);
-            jSlider4.setValue(t);
-            jLabel10.setForeground(Color.red);
-            jLabel10.setText(" " + rs + "");
-            jLabel11.setForeground(Color.green);
-            jLabel11.setText(" " + gs + "");
-            jLabel12.setForeground(Color.blue);
-            jLabel12.setText(" " + bs + "");
-            jLabel9.setForeground(Color.black);
-            jLabel9.setText(" " + t + "");
-            
+
+    public void slider(int rs, int gs, int bs, int t) {
+        jSlider1.setValue(rs);
+        jSlider2.setValue(gs);
+        jSlider3.setValue(bs);
+        jSlider4.setValue(t);
+        jLabel10.setForeground(Color.red);
+        jLabel10.setText(" " + rs + "");
+        jLabel11.setForeground(Color.green);
+        jLabel11.setText(" " + gs + "");
+        jLabel12.setForeground(Color.blue);
+        jLabel12.setText(" " + bs + "");
+        jLabel9.setForeground(Color.black);
+        jLabel9.setText(" " + t + "");
+
     }
 
     public static void main(String args[]) {
@@ -1079,27 +1106,28 @@ public class Einladung extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public void zeichneBild2(Graphics g) {
         if (bildbearbeitet != null) {
             int w = jPanel3.getWidth();
             int hoeheneu = bildbearbeitet.getHeight() * w / bildbearbeitet.getWidth();
             System.out.println("Maße des Bildes original: " + bildbearbeitet.getWidth() + " " + bildbearbeitet.getHeight() + " , nach Anpassung: " + w + " " + hoeheneu);
             g.drawImage(bildbearbeitet, 0, 0, w, hoeheneu, this);
-            jPanel3.setSize(w,hoeheneu);
+            jPanel3.setSize(w, hoeheneu);
         } else {
             g.setColor(new Color(10, 10, 100));
             g.fillRect(0, 0, jPanel3.getWidth(), jPanel3.getHeight());
         }
     }
-                    public void zeichneBild3(Graphics g) {
+
+    public void zeichneBild3(Graphics g) {
         if (bildoriginal != null) {
             int w = jPanel4.getWidth();
             int hoeheneu = bildoriginal.getHeight() * w / bildoriginal.getWidth();
             System.out.println("Maße des Bildes original: " + bildoriginal.getWidth() + " " + bildoriginal.getHeight() + " , nach Anpassung: " + w + " " + hoeheneu);
             jPanel4.setSize(w, hoeheneu);
             g.drawImage(bildoriginal, 0, 0, w, hoeheneu, this);
-           
+
         } else {
             g.setColor(new Color(10, 10, 100));
             g.fillRect(0, 0, jPanel4.getWidth(), jPanel4.getHeight());
@@ -1134,7 +1162,6 @@ public class Einladung extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
