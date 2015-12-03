@@ -584,12 +584,6 @@ public class Einladung extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel2MouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -664,7 +658,6 @@ public class Einladung extends javax.swing.JFrame {
         int v_x = jPanel2.getWidth() / 2;
         v_x = v_x + 20;
         //Karten erstellen
-        int max = 40;
         int a = 0;
         karte = new BufferedImage(jPanel2.getWidth(), jPanel2.getHeight(), BufferedImage.TYPE_INT_RGB);
         Graphics2D g_karte = karte.createGraphics();
@@ -716,12 +709,29 @@ public class Einladung extends javax.swing.JFrame {
             g_karte.setFont(new Font("Arial", Font.PLAIN, 20));
             g_karte.setColor(Color.blue);
             g_karte.drawString("" + anrede + ",", v_x + b, 80);
+            
             int laenge = text.length();
-            //text.split(schrift)um Wörter zu trennen
-            if (laenge > max) {
-                text2 = text.substring(max, laenge);
-                text = text.substring(0, max);
-                g_karte.drawString("" + text + "-", v_x + b, 120);
+            int l=0;
+            int max = 30;
+            int w=0;
+            int lm=0;
+            
+            String woerter[]=text.split(" ");
+            for(int i=0; i<woerter.length;i++){
+                
+                l=l+woerter[i].length()+i;
+                if(l>max && w == 0){
+                    w=i;
+                    lm=l;
+                }
+            }
+            
+            
+            
+            if (lm !=0) {
+                text2 = text.substring(lm, laenge);
+                text = text.substring(0, lm);
+                g_karte.drawString("" + text + "", v_x + b, 120);
                 g_karte.drawString("" + text2 + ".", v_x + b, 160);
                 a = 40;
             } else {
@@ -757,9 +767,23 @@ public class Einladung extends javax.swing.JFrame {
         g_karte2.drawRect(v_x, g, jPanel2.getWidth() - (v_x + g), jPanel2.getHeight() - 2 * g);
         
         //Bild einfügen
-        int hoeheneu = bildbearbeitet.getHeight() * 200 / bildbearbeitet.getWidth();
-        g_karte2.drawImage(bildbearbeitet, x_bild, y_bild, 200, hoeheneu, this);
-
+         if (bildoriginal != null) {
+        int bp=0; //Panelbreite
+        int bb=0; //Bildbreite
+        bp=jPanel2.getWidth()/2;
+        bb=(jPanel2.getWidth()/4)+100;
+        x_bild=(bp/2)-(bb/2);
+        
+        int hoeheneu = bildbearbeitet.getHeight() * bb / bildbearbeitet.getWidth();
+        
+        int hp=0; //Panelhöhe
+        int hb=0; //Bildhöhe
+        hp=jPanel2.getHeight();
+        hb=hoeheneu;
+        y_bild=(hp/2)-(hb/2);
+        
+        g_karte2.drawImage(bildbearbeitet, x_bild, y_bild, bb, hoeheneu, this);
+        }
         jPanel2.repaint();
 
 
@@ -1001,11 +1025,6 @@ public class Einladung extends javax.swing.JFrame {
             jPanel4.repaint();
         }
     }//GEN-LAST:event_jButton10ActionPerformed
-
-    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
-        x_bild = evt.getX();
-        y_bild = evt.getY();
-    }//GEN-LAST:event_jPanel2MouseClicked
 
     private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
         //Automatischer Farbfilter durch Mausklick
