@@ -39,6 +39,15 @@ public class Einladung extends javax.swing.JFrame {
     int transparenz = 0;
     int seite = 1;
 
+    String anrede = "null";
+    String text = "null";
+    String text2 = "null";
+    String wann = "null";
+    String wo = "null";
+    String antwort = "null";
+    String tel = "null";
+    String absender = "null";
+
     String betreff = null;
     String betreff2 = null;
     String schrift = "Arial";
@@ -64,6 +73,12 @@ public class Einladung extends javax.swing.JFrame {
     int filter = 0;
     int x_bild = 100;
     int y_bild = 100;
+    int x_bild_filter = 0;
+    int y_bild_filter = 0;
+    int af1 = 0;
+    int af2 = 0;
+    int af3 = 0;
+    int adf = 0;
 
     /**
      * Creates new form Einladung
@@ -107,6 +122,8 @@ public class Einladung extends javax.swing.JFrame {
         jComboBox3 = new javax.swing.JComboBox();
         jLabel19 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -124,7 +141,6 @@ public class Einladung extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
         jSlider2 = new javax.swing.JSlider();
         jSlider3 = new javax.swing.JSlider();
         jLabel10 = new javax.swing.JLabel();
@@ -134,11 +150,13 @@ public class Einladung extends javax.swing.JFrame {
         jSlider4 = new javax.swing.JSlider();
         jLabel9 = new javax.swing.JLabel();
         jSlider1 = new javax.swing.JSlider();
-        jLabel13 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
         jPanel2 =  new javax.swing.JPanel(){
             public void paintComponent(Graphics g){
                 super.paintComponent(g);
@@ -146,7 +164,7 @@ public class Einladung extends javax.swing.JFrame {
             }
         };
         jToggleButton1 = new javax.swing.JToggleButton();
-        jButton7 = new javax.swing.JButton();
+        jLabel20 = new javax.swing.JLabel();
 
         jDialog1.setTitle("Hinweis");
         jDialog1.setBackground(new java.awt.Color(255, 255, 0));
@@ -200,26 +218,32 @@ public class Einladung extends javax.swing.JFrame {
 
         jDialog1.getAccessibleContext().setAccessibleDescription("noch nicht gespeichert");
 
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel3MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jSlider5.setMaximum(300);
@@ -257,6 +281,12 @@ public class Einladung extends javax.swing.JFrame {
 
         jLabel19.setText("Filterfarbe:");
 
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel21.setText("Um den automatischen Filter zu aktivieren, einfach auf eine Stelle im linke Bild klicken, die Ausgeschnitten werden soll");
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel22.setText("Um das Bild in die Karte zu übernehmen, dieses Fenster schließen und die Einstellungen übernehmen");
+
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
         jFrame1Layout.setHorizontalGroup(
@@ -264,6 +294,8 @@ public class Einladung extends javax.swing.JFrame {
             .addGroup(jFrame1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel22)
+                    .addComponent(jLabel21)
                     .addGroup(jFrame1Layout.createSequentialGroup()
                         .addComponent(jButton8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -272,20 +304,19 @@ public class Einladung extends javax.swing.JFrame {
                         .addComponent(jLabel19)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jFrame1Layout.createSequentialGroup()
-                            .addComponent(jLabel17)
-                            .addGap(27, 27, 27)
-                            .addComponent(jSlider5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton10))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jFrame1Layout.createSequentialGroup()
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(64, Short.MAX_VALUE))
+                    .addGroup(jFrame1Layout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addGap(27, 27, 27)
+                        .addComponent(jSlider5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton10))
+                    .addGroup(jFrame1Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jFrame1Layout.setVerticalGroup(
             jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,10 +329,14 @@ public class Einladung extends javax.swing.JFrame {
                         .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                .addComponent(jLabel22)
+                .addGap(5, 5, 5)
+                .addComponent(jLabel21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSlider5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -339,13 +374,6 @@ public class Einladung extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Einstellungen/Text übernehmen...");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jSlider2.setMaximum(255);
         jSlider2.setValue(0);
         jSlider2.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -372,7 +400,7 @@ public class Einladung extends javax.swing.JFrame {
         jLabel12.setForeground(new java.awt.Color(0, 0, 255));
         jLabel12.setText("0");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hintergrundfarbe", "Umrandungsfarbe" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "RGB für Hintergrundfarbe", "RGB für Umrandungsfarbe" }));
         jComboBox2.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox2ItemStateChanged(evt);
@@ -397,8 +425,6 @@ public class Einladung extends javax.swing.JFrame {
             }
         });
 
-        jLabel13.setText("Sichtbarkeit Konfetti");
-
         jButton2.setText("Karte Speichern");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -415,68 +441,80 @@ public class Einladung extends javax.swing.JFrame {
 
         jButton4.setText("Karte Drucken");
 
+        jButton7.setText("Bild einfügen");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Einstellungen/Text übernehmen...");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setText("Sichtbarkeit Konfetti");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField1)
+                            .addComponent(jTextField2)
+                            .addComponent(jTextField3)
+                            .addComponent(jTextField4)
+                            .addComponent(jTextField5)
+                            .addComponent(jTextField6)
+                            .addComponent(jTextField7)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jTextField2)
-                                    .addComponent(jTextField3)
-                                    .addComponent(jTextField4)
-                                    .addComponent(jTextField5)
-                                    .addComponent(jTextField6)
-                                    .addComponent(jTextField7)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(12, 12, 12)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jSlider3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel13)
-                                            .addComponent(jSlider4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel11)
-                                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(jSlider3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jButton7)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(12, 12, 12)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addContainerGap()
+                                        .addComponent(jSlider4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButton2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton4))
-                            .addComponent(jButton3))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(jButton3)
+                            .addComponent(jButton1)
+                            .addComponent(jLabel13))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -509,20 +547,18 @@ public class Einladung extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSlider3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -533,9 +569,11 @@ public class Einladung extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSlider4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton4))
@@ -570,13 +608,6 @@ public class Einladung extends javax.swing.JFrame {
             }
         });
 
-        jButton7.setText("Bild einfügen");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -590,9 +621,11 @@ public class Einladung extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(88, 88, 88)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton7)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jToggleButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -606,29 +639,31 @@ public class Einladung extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(jToggleButton1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(29, 29, 29)
-                .addComponent(jButton7)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String anrede = jTextField1.getText();
-        String text = jTextField2.getText();
-        String text2 = null;
-        String wann = jTextField3.getText();
-        String wo = jTextField4.getText();
-        String antwort = jTextField5.getText();
-        String tel = jTextField6.getText();
-        String absender = jTextField7.getText();
+        // Textfelder einlesen
+        anrede = jTextField1.getText();
+        text = jTextField2.getText();
+        text2 = null;
+        wann = jTextField3.getText();
+        wo = jTextField4.getText();
+        antwort = jTextField5.getText();
+        tel = jTextField6.getText();
+        absender = jTextField7.getText();
+
         int v_x = jPanel2.getWidth() / 2;
         v_x = v_x + 20;
-
+        //Karten erstellen
         int max = 40;
         int a = 0;
         karte = new BufferedImage(jPanel2.getWidth(), jPanel2.getHeight(), BufferedImage.TYPE_INT_RGB);
@@ -644,8 +679,8 @@ public class Einladung extends javax.swing.JFrame {
         g_karte2.fillRect(0, 0, jPanel2.getWidth(), jPanel2.getHeight());
         g_karte2.setColor(new Color(0, 0, 0, 100));
         g_karte2.drawLine(jPanel2.getWidth() / 2, 0, jPanel2.getWidth() / 2, jPanel2.getHeight());
-
-        int r = (int) (Math.random() * 120) + 100;  //Konfetti zeichnen
+        //Konfetti zeichnen
+        int r = (int) (Math.random() * 120) + 100;
         for (int i = 0; i < r; i++) {
             int zr = (int) (Math.random() * 200) + 55;
             int zg = (int) (Math.random() * 200) + 55;
@@ -671,30 +706,39 @@ public class Einladung extends javax.swing.JFrame {
 
         }
 
-        g_karte.setFont(new Font("Arial", Font.PLAIN, 20)); //Text
-        g_karte.setColor(Color.blue);
-        g_karte.drawString("" + anrede + ",", v_x + 50, 80);
-        int laenge = text.length();
-        if (laenge > max) {
-            text2 = text.substring(max, laenge);
-            text = text.substring(0, max);
-            g_karte.drawString("" + text + "-", v_x + 50, 120);
-            g_karte.drawString("" + text2 + ".", v_x + 50, 160);
-            a = 40;
+        if (anrede.length() == 0 && text.length() == 0) {
+            jLabel20.setForeground(Color.red);
+            jLabel20.setText("Du musst noch deinen Text eingeben!");
         } else {
-            g_karte.drawString("" + text + ".", v_x + 50, 120);
+            // Text auf Karte schreiben (Innenseite)
+            int b=30; //Abstand Mitte Text
+            int c=50; //Abstand Eingerückter Text Mitte
+            g_karte.setFont(new Font("Arial", Font.PLAIN, 20));
+            g_karte.setColor(Color.blue);
+            g_karte.drawString("" + anrede + ",", v_x + b, 80);
+            int laenge = text.length();
+            //text.split(schrift)um Wörter zu trennen
+            if (laenge > max) {
+                text2 = text.substring(max, laenge);
+                text = text.substring(0, max);
+                g_karte.drawString("" + text + "-", v_x + b, 120);
+                g_karte.drawString("" + text2 + ".", v_x + b, 160);
+                a = 40;
+            } else {
+                g_karte.drawString("" + text + ".", v_x + b, 120);
+            }
+
+            g_karte.setColor(Color.red);
+            g_karte.drawString("Wann: Am " + wann + "", v_x + c, 160 + a);
+            g_karte.drawString("Wo: " + wo + "", v_x + c, 200 + a);
+            g_karte.drawString("U.A.w.g. bis zum " + antwort + "", v_x + c, 240 + a);
+            g_karte.drawString("Tel.: " + tel + "", v_x + c, 280 + a);
+            g_karte.setFont(new Font(schrift, Font.BOLD, 30));
+            g_karte.setColor(Color.blue);
+            g_karte.drawString(absender, v_x + b, 320 + a);
+
         }
-
-        g_karte.setColor(Color.red);
-        g_karte.drawString("Wann: Am " + wann + "", v_x + 80, 160 + a);
-        g_karte.drawString("Wo: " + wo + "", v_x + 80, 200 + a);
-        g_karte.drawString("U.A.w.g. bis zum " + antwort + "", v_x + 80, 240 + a);
-        g_karte.drawString("Tel.: " + tel + "", v_x + 80, 300 + a);
-        g_karte.setFont(new Font(schrift, Font.BOLD, 30));
-        g_karte.setColor(Color.blue);
-        g_karte.drawString(absender, v_x + 50, 340 + a);
-
-        //Vorderseite
+        //Text Vorderseite
         g_karte2.setColor(Color.blue);
         g_karte2.setFont(new Font(schrift, Font.PLAIN, 40));
         g_karte2.drawString("Herzliche Einladung", v_x + 50, 200);
@@ -711,41 +755,11 @@ public class Einladung extends javax.swing.JFrame {
         g_karte2.setStroke(new BasicStroke(5));
         g_karte2.drawRect(g, g, jPanel2.getWidth() - (v_x + g), jPanel2.getHeight() - 2 * g);
         g_karte2.drawRect(v_x, g, jPanel2.getWidth() - (v_x + g), jPanel2.getHeight() - 2 * g);
-
-        //Bild nachträglichen Farbanpassungen anpassen
-        if (bildbearbeitet != null) {
-
-            Graphics2D g_b2 = bildbearbeitet.createGraphics();
-            x = 0;
-            y = 0;
-            for (int i = 0; i < (bildbearbeitet.getHeight() * bildbearbeitet.getWidth()); i++) {
-
-                int co = bildoriginal.getRGB(x, y);
-                Color c = new Color(co);
-                bl3 = c.getBlue();
-                gr3 = c.getGreen();
-                ro3 = c.getRed();
-                d1 = ro3 - rof;
-                d2 = gr3 - grf;
-                d3 = bl3 - blf;
-                df = (int) Math.sqrt((d1 * d1) + (d2 * d2) + (d3 * d3)); //"Abstand" zur Filterfarbe berechen
-
-                if (df <= filter) {
-                    g_b2.setColor(new Color(ro, gr, bl));
-                    g_b2.drawRect(x - 1, y - 1, 1, 1);
-
-                }
-                x++;
-                if (x == bildbearbeitet.getWidth()) {
-                    x = 0;
-                    y++;
-                }
-            }
-            int hoeheneu = bildbearbeitet.getHeight() * 200 / bildbearbeitet.getWidth();
-            g_karte2.drawImage(bildbearbeitet, x_bild, y_bild, 200, hoeheneu, this);
-        }
-
+        
         //Bild einfügen
+        int hoeheneu = bildbearbeitet.getHeight() * 200 / bildbearbeitet.getWidth();
+        g_karte2.drawImage(bildbearbeitet, x_bild, y_bild, 200, hoeheneu, this);
+
         jPanel2.repaint();
 
 
@@ -778,10 +792,12 @@ public class Einladung extends javax.swing.JFrame {
     }//GEN-LAST:event_jSlider4StateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // Knopf Speichern
         speichern();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        //Knopf Fertig
         if (gespeichert) {
             System.exit(0);
         } else {
@@ -793,14 +809,17 @@ public class Einladung extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        //Dialog Knopf abbrechen
         System.exit(0);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        //Diealog Knopf Speichern
         speichern();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        //Vorlagen auswählen
         int thema = jComboBox1.getSelectedIndex();
         if (thema == 1) { //Geburtstag
             ro = 250;
@@ -886,12 +905,13 @@ public class Einladung extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // Bildeffekte starten
         jFrame1.setVisible(true);
-        jFrame1.setSize(600, 500);
+        jFrame1.setSize(675, 500);
         jFrame1.repaint();
 
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        //Bild auswählen und einfügen
         final JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File("/"));
 
@@ -923,6 +943,7 @@ public class Einladung extends javax.swing.JFrame {
     }//GEN-LAST:event_jSlider5StateChanged
 
     private void jComboBox3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox3ItemStateChanged
+        //Farbfilter wählen
         int auswahl = jComboBox3.getSelectedIndex();
         if (auswahl == 0) {
             rof = 255;
@@ -948,16 +969,14 @@ public class Einladung extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox3ItemStateChanged
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        //Filter anwenden und ausstanzen
         if (bildoriginal != null) {
 
             Graphics2D g_b2 = bildbearbeitet.createGraphics();
             x = 0;
             y = 0;
-        //Ausstanzen
-
+            //Ausstanzen
             for (int i = 0; i < (bildbearbeitet.getHeight() * bildbearbeitet.getWidth()); i++) {
-            //System.out.print(""+x+", ");
-                //System.out.println(y);
                 int co = bildoriginal.getRGB(x, y);
                 Color c = new Color(co);
                 bl3 = c.getBlue();
@@ -972,19 +991,13 @@ public class Einladung extends javax.swing.JFrame {
                     g_b2.setColor(new Color(ro, gr, bl));
                     g_b2.drawRect(x - 1, y - 1, 1, 1);
 
-                } else {
-               //g_b2.setColor(Color.GREEN);
-                    //g_b2.drawRect(x-1,y-1,1,1); //andere als Filterfarbe
-                    // jPanel2.repaint();
                 }
                 x++;
                 if (x == bildbearbeitet.getWidth()) {
                     x = 0;
                     y++;
                 }
-
             }
-
             jPanel4.repaint();
         }
     }//GEN-LAST:event_jButton10ActionPerformed
@@ -993,6 +1006,23 @@ public class Einladung extends javax.swing.JFrame {
         x_bild = evt.getX();
         y_bild = evt.getY();
     }//GEN-LAST:event_jPanel2MouseClicked
+
+    private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
+        //Automatischer Farbfilter durch Mausklick
+        x_bild_filter = evt.getX();
+        y_bild_filter = evt.getY();
+        int co = bildoriginal.getRGB(x_bild_filter, y_bild_filter);
+        Color c = new Color(co);
+        af1 = c.getRed() - rof;
+        af2 = c.getGreen() - grf;
+        af3 = c.getBlue() - blf;
+        adf = (int) Math.sqrt((af1 * af1) + (af2 * af2) + (af3 * af3)) + 15;
+        filter = adf;
+        jSlider5.setValue(adf);
+        jLabel18.setText("" + adf + "");
+        jLabel21.setForeground(Color.RED);
+        jLabel21.setText("Automatischer Filter aktiv! Eingestellter Wert:" + adf + "");
+    }//GEN-LAST:event_jPanel3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -1107,7 +1137,7 @@ public class Einladung extends javax.swing.JFrame {
         });
     }
 
-    public void zeichneBild2(Graphics g) {
+    public void zeichneBild2(Graphics g) { //rechtes Bild
         if (bildbearbeitet != null) {
             int w = jPanel3.getWidth();
             int hoeheneu = bildbearbeitet.getHeight() * w / bildbearbeitet.getWidth();
@@ -1120,7 +1150,7 @@ public class Einladung extends javax.swing.JFrame {
         }
     }
 
-    public void zeichneBild3(Graphics g) {
+    public void zeichneBild3(Graphics g) { //linkes Bild
         if (bildoriginal != null) {
             int w = jPanel4.getWidth();
             int hoeheneu = bildoriginal.getHeight() * w / bildoriginal.getWidth();
@@ -1162,6 +1192,9 @@ public class Einladung extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
