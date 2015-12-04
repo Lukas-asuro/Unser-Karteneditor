@@ -710,23 +710,20 @@ public class Einladung extends javax.swing.JFrame {
             g_karte.setColor(Color.blue);
             g_karte.drawString("" + anrede + ",", v_x + b, 80);
             
+            //Automatischer Zeilenumbruch
             int laenge = text.length();
             int l=0;
-            int max = 30;
-            int w=0;
+            int max = 35;
             int lm=0;
             
             String woerter[]=text.split(" ");
             for(int i=0; i<woerter.length;i++){
-                
-                l=l+woerter[i].length()+i;
-                if(l>max && w == 0){
-                    w=i;
+                l=l+woerter[i].length()+1;
+                if(l>max && lm == 0){
                     lm=l;
                 }
             }
-            
-            
+                        
             
             if (lm !=0) {
                 text2 = text.substring(lm, laenge);
@@ -782,6 +779,7 @@ public class Einladung extends javax.swing.JFrame {
         hb=hoeheneu;
         y_bild=(hp/2)-(hb/2);
         
+        g_karte.drawImage(bildbearbeitet, x_bild, y_bild, bb, hoeheneu, this);
         g_karte2.drawImage(bildbearbeitet, x_bild, y_bild, bb, hoeheneu, this);
         }
         jPanel2.repaint();
@@ -946,10 +944,16 @@ public class Einladung extends javax.swing.JFrame {
         jLabel16.setText(f.getName());
         if (pfad != null) {
             try {
-                bildbearbeitet = ImageIO.read(new File(pfad));
-
-                bildoriginal = bildbearbeitet;
-                b = bildoriginal;
+                bildoriginal = ImageIO.read(new File(pfad));
+                
+                /*bildbearbeitet = new BufferedImage(bildoriginal.getWidth(), bildoriginal.getHeight(), BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g_bildbearbeitet = bildbearbeitet.createGraphics();
+            g_bildbearbeitet.setColor(new Color(255, 255, 255));
+            g_bildbearbeitet.fillRect(0, 0, bildoriginal.getWidth(), bildoriginal.getHeight());
+            
+            g_bildbearbeitet.drawImage(bildoriginal, 0, 0, bildoriginal.getWidth(), bildoriginal.getHeight(), this);
+*/
+                bildbearbeitet=bildoriginal;
                 jPanel3.repaint();
                 jPanel4.repaint();
 
@@ -1012,9 +1016,12 @@ public class Einladung extends javax.swing.JFrame {
                 df = (int) Math.sqrt((d1 * d1) + (d2 * d2) + (d3 * d3)); //"Abstand" zur Filterfarbe berechen
 
                 if (df <= filter) {
-                    g_b2.setColor(new Color(ro, gr, bl));
+                    g_b2.setColor(new Color(ro,gr,bl));
                     g_b2.drawRect(x - 1, y - 1, 1, 1);
 
+                }
+                else{
+                    
                 }
                 x++;
                 if (x == bildbearbeitet.getWidth()) {
@@ -1056,9 +1063,6 @@ public class Einladung extends javax.swing.JFrame {
                 g.drawImage(karte2, 0, 0, w, h, this);
             }
         } else {
-            System.out.println(jPanel2.getWidth());
-            System.out.println(jPanel2.getHeight());
-
             g.setColor(new Color(0, 0, 50));
             g.fillRect(0, 0, jPanel2.getWidth(), jPanel2.getHeight());
 
