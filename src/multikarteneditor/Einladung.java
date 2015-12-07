@@ -24,6 +24,7 @@ public class Einladung extends javax.swing.JFrame {
 
     BufferedImage karte = null;
     BufferedImage karte2 = null;
+    BufferedImage karte_fertig = null;
     int ro = 0;
     int gr = 0;
     int bl = 0;
@@ -733,33 +734,29 @@ public class Einladung extends javax.swing.JFrame {
             jTextField5.setBackground(Color.white);
             jTextField6.setBackground(Color.white);
             jTextField7.setBackground(Color.white);
-            
-            
-            
-            
+
             // Text auf Karte schreiben (Innenseite)
-            int b=30; //Abstand Mitte Text
-            int c=50; //Abstand Eingerückter Text Mitte
+            int b = 30; //Abstand Mitte Text
+            int c = 50; //Abstand Eingerückter Text Mitte
             g_karte.setFont(new Font("Arial", Font.PLAIN, 20));
             g_karte.setColor(Color.blue);
             g_karte.drawString("" + anrede + ",", v_x + b, 80);
-            
+
             //Automatischer Zeilenumbruch
             int laenge = text.length();
-            int l=0;
+            int l = 0;
             int max = 35;
-            int lm=0;
-            
-            String woerter[]=text.split(" ");
-            for(int i=0; i<woerter.length;i++){
-                l=l+woerter[i].length()+1;
-                if(l>max && lm == 0){
-                    lm=l;
+            int lm = 0;
+
+            String woerter[] = text.split(" ");
+            for (int i = 0; i < woerter.length; i++) {
+                l = l + woerter[i].length() + 1;
+                if (l > max && lm == 0) {
+                    lm = l;
                 }
             }
-                        
-            
-            if (lm !=0) {
+
+            if (lm != 0) {
                 text2 = text.substring(lm, laenge);
                 text = text.substring(0, lm);
                 g_karte.drawString("" + text + "", v_x + b, 120);
@@ -796,25 +793,25 @@ public class Einladung extends javax.swing.JFrame {
         g_karte2.setStroke(new BasicStroke(5));
         g_karte2.drawRect(g, g, jPanel2.getWidth() - (v_x + g), jPanel2.getHeight() - 2 * g);
         g_karte2.drawRect(v_x, g, jPanel2.getWidth() - (v_x + g), jPanel2.getHeight() - 2 * g);
-        
+
         //Bild einfügen
-         if (bildoriginal != null) {
-        int bp=0; //Panelbreite
-        int bb=0; //Bildbreite
-        bp=jPanel2.getWidth()/2;
-        bb=(jPanel2.getWidth()/4)+100;
-        x_bild=(bp/2)-(bb/2);
-        
-        int hoeheneu = bildbearbeitet.getHeight() * bb / bildbearbeitet.getWidth();
-        
-        int hp=0; //Panelhöhe
-        int hb=0; //Bildhöhe
-        hp=jPanel2.getHeight();
-        hb=hoeheneu;
-        y_bild=(hp/2)-(hb/2);
-        
-        g_karte.drawImage(bildbearbeitet, x_bild, y_bild, bb, hoeheneu, this);
-        g_karte2.drawImage(bildbearbeitet, x_bild, y_bild, bb, hoeheneu, this);
+        if (bildoriginal != null) {
+            int bp = 0; //Panelbreite
+            int bb = 0; //Bildbreite
+            bp = jPanel2.getWidth() / 2;
+            bb = (jPanel2.getWidth() / 4) + 100;
+            x_bild = (bp / 2) - (bb / 2);
+
+            int hoeheneu = bildbearbeitet.getHeight() * bb / bildbearbeitet.getWidth();
+
+            int hp = 0; //Panelhöhe
+            int hb = 0; //Bildhöhe
+            hp = jPanel2.getHeight();
+            hb = hoeheneu;
+            y_bild = (hp / 2) - (hb / 2);
+
+            g_karte.drawImage(bildbearbeitet, x_bild, y_bild, bb, hoeheneu, this);
+            g_karte2.drawImage(bildbearbeitet, x_bild, y_bild, bb, hoeheneu, this);
         }
         jPanel2.repaint();
 
@@ -980,15 +977,15 @@ public class Einladung extends javax.swing.JFrame {
             try {
                 bildoriginal = ImageIO.read(new File(pfad));
                 bildbearbeitet = ImageIO.read(new File(pfad));
-                
-                /* bildbearbeitet = new BufferedImage(bildoriginal.getWidth(), bildoriginal.getHeight(), BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g_bildbearbeitet = bildbearbeitet.createGraphics();
-            g_bildbearbeitet.setColor(new Color(255, 255, 255,255));
-            g_bildbearbeitet.fillRect(0, 0, bildoriginal.getWidth(), bildoriginal.getHeight());
-            
-            g_bildbearbeitet.drawImage(bildoriginal, 0, 0, bildoriginal.getWidth(), bildoriginal.getHeight(), this);
 
-              */  
+                /* bildbearbeitet = new BufferedImage(bildoriginal.getWidth(), bildoriginal.getHeight(), BufferedImage.TYPE_INT_ARGB);
+                 Graphics2D g_bildbearbeitet = bildbearbeitet.createGraphics();
+                 g_bildbearbeitet.setColor(new Color(255, 255, 255,255));
+                 g_bildbearbeitet.fillRect(0, 0, bildoriginal.getWidth(), bildoriginal.getHeight());
+            
+                 g_bildbearbeitet.drawImage(bildoriginal, 0, 0, bildoriginal.getWidth(), bildoriginal.getHeight(), this);
+
+                 */
                 jPanel3.repaint();
                 jPanel4.repaint();
 
@@ -1041,7 +1038,7 @@ public class Einladung extends javax.swing.JFrame {
             //Bild zunächst zurücksetzten
             g_b2.drawImage(bildoriginal, 0, 0, bildoriginal.getWidth(), bildoriginal.getHeight(), this);
             jPanel3.repaint();
-            
+
             //Ausstanzen
             for (int i = 0; i < (bildbearbeitet.getHeight() * bildbearbeitet.getWidth()); i++) {
                 int co = bildoriginal.getRGB(x, y);
@@ -1055,11 +1052,10 @@ public class Einladung extends javax.swing.JFrame {
                 df = (int) Math.sqrt((d1 * d1) + (d2 * d2) + (d3 * d3)); //"Abstand" zur Filterfarbe berechen
 
                 if (df <= filter) {
-                    g_b2.setColor(new Color(ro,gr,bl));
+                    g_b2.setColor(new Color(ro, gr, bl));
                     g_b2.drawRect(x - 1, y - 1, 1, 1);
-                }
-                else{
-                    
+                } else {
+
                 }
                 x++;
                 if (x == bildbearbeitet.getWidth()) {
@@ -1069,6 +1065,7 @@ public class Einladung extends javax.swing.JFrame {
             }
             jPanel3.repaint();
             jPanel4.repaint();
+
         }
     }//GEN-LAST:event_jButton10ActionPerformed
 
@@ -1146,17 +1143,27 @@ public class Einladung extends javax.swing.JFrame {
     public void speichern() {
         final JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File("/"));
+        int zahl = fc.showOpenDialog(this);
         File f = fc.getSelectedFile();
 
+        karte_fertig = new BufferedImage(karte.getWidth(), (karte.getHeight() * 2) + 10, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g_karte_fertig = karte_fertig.createGraphics();
+        g_karte_fertig.setColor(Color.WHITE);
+        g_karte_fertig.fillRect(0, 0, karte.getWidth(), karte.getHeight());
+        g_karte_fertig.drawImage(karte, 0, 0, karte.getWidth(), karte.getHeight(), this);
+        g_karte_fertig.drawImage(karte2, 0, karte.getHeight() + 10, karte2.getWidth(), karte2.getHeight(), this);
+
         try {
-            ImageIO.write(karte, "png", f);
+            ImageIO.write(karte_fertig, "png", f);
             jLabel14.setForeground(Color.blue);
             jLabel14.setText("Gespeichert in " + f.getParent());
             gespeichert = true;
+            jDialog1.dispose();
         } catch (IOException ex) {
             jLabel14.setForeground(Color.red);
             jLabel14.setText("Problem beim Speichern aufgetreten!");
         }
+
     }
 
     public void slider(int rs, int gs, int bs, int t) {
@@ -1211,7 +1218,7 @@ public class Einladung extends javax.swing.JFrame {
         if (bildbearbeitet != null) {
             int w = jPanel3.getWidth();
             int hoeheneu = bildbearbeitet.getHeight() * w / bildbearbeitet.getWidth();
-            System.out.println("Maße des Bildes original: " + bildbearbeitet.getWidth() + " " + bildbearbeitet.getHeight() + " , nach Anpassung: " + w + " " + hoeheneu);
+            //System.out.println("Maße des Bildes original: " + bildbearbeitet.getWidth() + " " + bildbearbeitet.getHeight() + " , nach Anpassung: " + w + " " + hoeheneu);
             g.drawImage(bildbearbeitet, 0, 0, w, hoeheneu, this);
             jPanel3.setSize(w, hoeheneu);
         } else {
@@ -1224,7 +1231,7 @@ public class Einladung extends javax.swing.JFrame {
         if (bildoriginal != null) {
             int w = jPanel4.getWidth();
             int hoeheneu = bildoriginal.getHeight() * w / bildoriginal.getWidth();
-            System.out.println("Maße des Bildes original: " + bildoriginal.getWidth() + " " + bildoriginal.getHeight() + " , nach Anpassung: " + w + " " + hoeheneu);
+            //System.out.println("Maße des Bildes original: " + bildoriginal.getWidth() + " " + bildoriginal.getHeight() + " , nach Anpassung: " + w + " " + hoeheneu);
             jPanel4.setSize(w, hoeheneu);
             g.drawImage(bildoriginal, 0, 0, w, hoeheneu, this);
 
