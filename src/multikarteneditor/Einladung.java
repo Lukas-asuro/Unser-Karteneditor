@@ -57,7 +57,6 @@ public class Einladung extends javax.swing.JFrame {
     // Für Bildeffekte:
     BufferedImage bildoriginal = null;
     BufferedImage bildbearbeitet = null;
-    BufferedImage b = null;
     int x = 0;
     int y = 0;
     int bl3 = 0;
@@ -104,19 +103,18 @@ public class Einladung extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel(){
             public void paintComponent(Graphics g){
                 super.paintComponent(g);
-                zeichneBild2(g);
+                zeichneBild3(g);
             }
 
         };
         jPanel4 = new javax.swing.JPanel(){
             public void paintComponent(Graphics g){
                 super.paintComponent(g);
-                zeichneBild3(g);
+                zeichneBild2(g);
             }
         };
         jSlider5 = new javax.swing.JSlider();
         jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jComboBox3 = new javax.swing.JComboBox();
@@ -124,6 +122,7 @@ public class Einladung extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
+        jSpinner1 = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -218,6 +217,9 @@ public class Einladung extends javax.swing.JFrame {
 
         jDialog1.getAccessibleContext().setAccessibleDescription("noch nicht gespeichert");
 
+        jFrame1.setPreferredSize(new java.awt.Dimension(700, 600));
+
+        jPanel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel3MouseClicked(evt);
@@ -228,18 +230,18 @@ public class Einladung extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 330, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 330, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 330, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,8 +257,6 @@ public class Einladung extends javax.swing.JFrame {
         });
 
         jLabel17.setText("Whitescreen");
-
-        jLabel18.setText("0");
 
         jButton8.setText("Bild auswählen");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -281,11 +281,18 @@ public class Einladung extends javax.swing.JFrame {
 
         jLabel19.setText("Filterfarbe:");
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel21.setText("Um den automatischen Filter zu aktivieren, einfach auf eine Stelle im linke Bild klicken, die Ausgeschnitten werden soll");
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel22.setText("Um das Bild in die Karte zu übernehmen, dieses Fenster schließen und die Einstellungen übernehmen");
+
+        jSpinner1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jSpinner1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner1StateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -294,29 +301,31 @@ public class Einladung extends javax.swing.JFrame {
             .addGroup(jFrame1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jFrame1Layout.createSequentialGroup()
+                        .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jFrame1Layout.createSequentialGroup()
+                                .addComponent(jButton8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(47, 47, 47)
+                        .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jFrame1Layout.createSequentialGroup()
+                                .addComponent(jLabel19)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel22)
                     .addComponent(jLabel21)
-                    .addGroup(jFrame1Layout.createSequentialGroup()
-                        .addComponent(jButton8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel19)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jFrame1Layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addGap(27, 27, 27)
                         .addComponent(jSlider5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton10))
-                    .addGroup(jFrame1Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton10)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jFrame1Layout.setVerticalGroup(
             jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,7 +341,7 @@ public class Einladung extends javax.swing.JFrame {
                 .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
                 .addComponent(jLabel22)
                 .addGap(5, 5, 5)
                 .addComponent(jLabel21)
@@ -342,7 +351,7 @@ public class Einladung extends javax.swing.JFrame {
                     .addComponent(jSlider5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton10)
-                        .addComponent(jLabel18)))
+                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -365,7 +374,7 @@ public class Einladung extends javax.swing.JFrame {
         jLabel8.setText("Absender");
 
         jComboBox1.setMaximumRowCount(6);
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Vorlagen auswählen...", "Geburtstag", "Jubiläum", "Weihnachtsfeier", "Party", "Weiß", " " }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Vorlagen auswählen...", "Geburtstag", "Jubiläum", "Weihnachtsfeier", "Party", "Weiß" }));
         jComboBox1.setBorder(null);
         jComboBox1.setLightWeightPopupEnabled(false);
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
@@ -374,6 +383,8 @@ public class Einladung extends javax.swing.JFrame {
             }
         });
 
+        jSlider2.setBackground(java.awt.Color.green);
+        jSlider2.setForeground(new java.awt.Color(255, 255, 255));
         jSlider2.setMaximum(255);
         jSlider2.setValue(0);
         jSlider2.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -382,6 +393,7 @@ public class Einladung extends javax.swing.JFrame {
             }
         });
 
+        jSlider3.setBackground(java.awt.Color.blue);
         jSlider3.setMaximum(255);
         jSlider3.setValue(0);
         jSlider3.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -407,6 +419,7 @@ public class Einladung extends javax.swing.JFrame {
             }
         });
 
+        jSlider4.setBackground(java.awt.Color.lightGray);
         jSlider4.setMaximum(255);
         jSlider4.setValue(0);
         jSlider4.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -417,6 +430,7 @@ public class Einladung extends javax.swing.JFrame {
 
         jLabel9.setText("0 ");
 
+        jSlider1.setBackground(new java.awt.Color(255, 0, 0));
         jSlider1.setMaximum(255);
         jSlider1.setValue(0);
         jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -700,9 +714,29 @@ public class Einladung extends javax.swing.JFrame {
         }
 
         if (anrede.length() == 0 && text.length() == 0) {
+            //Kein Text eingegeben
             jLabel20.setForeground(Color.red);
             jLabel20.setText("Du musst noch deinen Text eingeben!");
+            jTextField1.setBackground(Color.red);
+            jTextField2.setBackground(Color.red);
+            jTextField3.setBackground(Color.red);
+            jTextField4.setBackground(Color.red);
+            jTextField5.setBackground(Color.red);
+            jTextField6.setBackground(Color.red);
+            jTextField7.setBackground(Color.red);
         } else {
+            jLabel20.setText(" ");
+            jTextField1.setBackground(Color.white);
+            jTextField2.setBackground(Color.white);
+            jTextField3.setBackground(Color.white);
+            jTextField4.setBackground(Color.white);
+            jTextField5.setBackground(Color.white);
+            jTextField6.setBackground(Color.white);
+            jTextField7.setBackground(Color.white);
+            
+            
+            
+            
             // Text auf Karte schreiben (Innenseite)
             int b=30; //Abstand Mitte Text
             int c=50; //Abstand Eingerückter Text Mitte
@@ -927,7 +961,7 @@ public class Einladung extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // Bildeffekte starten
         jFrame1.setVisible(true);
-        jFrame1.setSize(675, 500);
+        jFrame1.setSize(800, 650);
         jFrame1.repaint();
 
     }//GEN-LAST:event_jButton7ActionPerformed
@@ -945,15 +979,16 @@ public class Einladung extends javax.swing.JFrame {
         if (pfad != null) {
             try {
                 bildoriginal = ImageIO.read(new File(pfad));
+                bildbearbeitet = ImageIO.read(new File(pfad));
                 
-                /*bildbearbeitet = new BufferedImage(bildoriginal.getWidth(), bildoriginal.getHeight(), BufferedImage.TYPE_INT_ARGB);
+                /* bildbearbeitet = new BufferedImage(bildoriginal.getWidth(), bildoriginal.getHeight(), BufferedImage.TYPE_INT_ARGB);
             Graphics2D g_bildbearbeitet = bildbearbeitet.createGraphics();
-            g_bildbearbeitet.setColor(new Color(255, 255, 255));
+            g_bildbearbeitet.setColor(new Color(255, 255, 255,255));
             g_bildbearbeitet.fillRect(0, 0, bildoriginal.getWidth(), bildoriginal.getHeight());
             
             g_bildbearbeitet.drawImage(bildoriginal, 0, 0, bildoriginal.getWidth(), bildoriginal.getHeight(), this);
-*/
-                bildbearbeitet=bildoriginal;
+
+              */  
                 jPanel3.repaint();
                 jPanel4.repaint();
 
@@ -967,7 +1002,8 @@ public class Einladung extends javax.swing.JFrame {
 
     private void jSlider5StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider5StateChanged
         filter = jSlider5.getValue();
-        jLabel18.setText("" + filter + "");
+        jSpinner1.setValue(filter);
+        jSlider5.setBackground(Color.white);
     }//GEN-LAST:event_jSlider5StateChanged
 
     private void jComboBox3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox3ItemStateChanged
@@ -999,10 +1035,13 @@ public class Einladung extends javax.swing.JFrame {
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         //Filter anwenden und ausstanzen
         if (bildoriginal != null) {
-
             Graphics2D g_b2 = bildbearbeitet.createGraphics();
             x = 0;
             y = 0;
+            //Bild zunächst zurücksetzten
+            g_b2.drawImage(bildoriginal, 0, 0, bildoriginal.getWidth(), bildoriginal.getHeight(), this);
+            jPanel3.repaint();
+            
             //Ausstanzen
             for (int i = 0; i < (bildbearbeitet.getHeight() * bildbearbeitet.getWidth()); i++) {
                 int co = bildoriginal.getRGB(x, y);
@@ -1018,7 +1057,6 @@ public class Einladung extends javax.swing.JFrame {
                 if (df <= filter) {
                     g_b2.setColor(new Color(ro,gr,bl));
                     g_b2.drawRect(x - 1, y - 1, 1, 1);
-
                 }
                 else{
                     
@@ -1029,6 +1067,7 @@ public class Einladung extends javax.swing.JFrame {
                     y++;
                 }
             }
+            jPanel3.repaint();
             jPanel4.repaint();
         }
     }//GEN-LAST:event_jButton10ActionPerformed
@@ -1045,10 +1084,19 @@ public class Einladung extends javax.swing.JFrame {
         adf = (int) Math.sqrt((af1 * af1) + (af2 * af2) + (af3 * af3)) + 15;
         filter = adf;
         jSlider5.setValue(adf);
-        jLabel18.setText("" + adf + "");
+        filter = jSlider5.getValue();
+        jSpinner1.setValue(filter);
+        jSlider5.setBackground(Color.GREEN);
         jLabel21.setForeground(Color.RED);
         jLabel21.setText("Automatischer Filter aktiv! Eingestellter Wert:" + adf + "");
     }//GEN-LAST:event_jPanel3MouseClicked
+
+    private void jSpinner1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner1StateChanged
+        filter = (int) jSpinner1.getValue();
+        jSpinner1.setValue(filter);
+        jSlider5.setValue(filter);
+        jSlider5.setBackground(Color.white);
+    }//GEN-LAST:event_jSpinner1StateChanged
 
     /**
      * @param args the command line arguments
@@ -1098,7 +1146,6 @@ public class Einladung extends javax.swing.JFrame {
     public void speichern() {
         final JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File("/"));
-        int zahl = fc.showSaveDialog(this);
         File f = fc.getSelectedFile();
 
         try {
@@ -1212,7 +1259,6 @@ public class Einladung extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -1234,6 +1280,7 @@ public class Einladung extends javax.swing.JFrame {
     private javax.swing.JSlider jSlider3;
     private javax.swing.JSlider jSlider4;
     private javax.swing.JSlider jSlider5;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
