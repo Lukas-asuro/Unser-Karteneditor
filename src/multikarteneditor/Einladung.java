@@ -87,6 +87,8 @@ public class Einladung extends javax.swing.JFrame {
     int y_rechteck=0;
     int b=0;
     int h=0;
+    int letzter=0;
+    int max=0;
 
     /**
      * Creates new form Einladung
@@ -134,6 +136,7 @@ public class Einladung extends javax.swing.JFrame {
         jSpinner1 = new javax.swing.JSpinner();
         jLabel18 = new javax.swing.JLabel();
         jToggleButton2 = new javax.swing.JToggleButton();
+        jButton9 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -296,7 +299,7 @@ public class Einladung extends javax.swing.JFrame {
         jLabel19.setText("Filterfarbe:");
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel21.setText("Um den automatischen Filter zu aktivieren, einfach auf eine Stelle im linke Bild klicken, die Ausgeschnitten werden soll");
+        jLabel21.setText("Um den halbautomatischen Filter zu aktivieren, einfach auf eine Stelle im linke Bild klicken, die Ausgeschnitten werden soll");
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel22.setText("Um das Bild in die Karte zu übernehmen, dieses Fenster schließen und die Einstellungen übernehmen");
@@ -308,10 +311,17 @@ public class Einladung extends javax.swing.JFrame {
             }
         });
 
-        jToggleButton2.setText("Automatischer Farbfilter setzten...");
+        jToggleButton2.setText("Halbautomatischen Farbfilter setzten...");
         jToggleButton2.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jToggleButton2StateChanged(evt);
+            }
+        });
+
+        jButton9.setText("Vollautomatische Filteranpassung");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
             }
         });
 
@@ -322,6 +332,7 @@ public class Einladung extends javax.swing.JFrame {
             .addGroup(jFrame1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton9)
                     .addGroup(jFrame1Layout.createSequentialGroup()
                         .addComponent(jToggleButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -366,7 +377,9 @@ public class Einladung extends javax.swing.JFrame {
                 .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
+                .addComponent(jButton9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jToggleButton2))
@@ -1122,7 +1135,7 @@ public class Einladung extends javax.swing.JFrame {
         jSpinner1.setValue(filter);
         jSlider5.setBackground(Color.GREEN);
         jLabel21.setForeground(Color.RED);
-        jLabel21.setText("Automatischer Filter aktiv! Eingestellter Wert:" + adf + "");
+        jLabel21.setText("Halbautomatischer Filter aktiv! Eingestellter Wert:" + adf + "");
         }
         else if(modus==2){
             Graphics2D g_bv = bildvergleich.createGraphics();
@@ -1164,13 +1177,42 @@ public class Einladung extends javax.swing.JFrame {
             jToggleButton2.setText("Holdout Matte definieren...");
         } else {
             modus = 1;
-            jToggleButton2.setText("Automatischer Farbfilter setzen...");
+            jToggleButton2.setText("Halbautomatischen Farbfilter setzen...");
         }
     }//GEN-LAST:event_jToggleButton2StateChanged
 
     private void jPanel3MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseMoved
        
     }//GEN-LAST:event_jPanel3MouseMoved
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+       int xf=0;
+       int yf=0;
+        for(int i=0; i<(2*bildoriginal.getHeight()); i++){
+           int co = bildoriginal.getRGB(xf, yf);
+        Color c = new Color(co);
+        af1 = c.getRed() - rof;
+        af2 = c.getGreen() - grf;
+        af3 = c.getBlue() - blf;
+        adf = (int) Math.sqrt((af1 * af1) + (af2 * af2) + (af3 * af3)) + 15;
+        if(adf>letzter){
+            max=adf;
+        }
+        adf=letzter;
+        yf++;
+         if (yf == bildoriginal.getHeight()) {
+                    xf = bildoriginal.getWidth()-1;
+                    yf=0;
+                }
+       }
+        filter = max;
+        jSlider5.setValue(max);
+        filter = jSlider5.getValue();
+        jSpinner1.setValue(filter);
+        jSlider5.setBackground(Color.GREEN);
+        jLabel21.setForeground(Color.RED);
+        jLabel21.setText("Vollautomatischer Filter aktiv! Eingestellter Wert:" + max + "");
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1329,6 +1371,7 @@ public class Einladung extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
