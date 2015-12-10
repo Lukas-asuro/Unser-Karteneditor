@@ -58,6 +58,7 @@ public class Einladung extends javax.swing.JFrame {
     // Für Bildeffekte:
     BufferedImage bildoriginal = null;
     BufferedImage bildbearbeitet = null;
+    BufferedImage bildvergleich = null;
     int x = 0;
     int y = 0;
     int bl3 = 0;
@@ -79,6 +80,13 @@ public class Einladung extends javax.swing.JFrame {
     int af2 = 0;
     int af3 = 0;
     int adf = 0;
+    int modus=1;
+    boolean gedrueckt=false;
+    boolean gezeichnet=false;
+    int x_rechteck=0;
+    int y_rechteck=0;
+    int b=0;
+    int h=0;
 
     /**
      * Creates new form Einladung
@@ -124,6 +132,8 @@ public class Einladung extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jSpinner1 = new javax.swing.JSpinner();
+        jLabel18 = new javax.swing.JLabel();
+        jToggleButton2 = new javax.swing.JToggleButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -218,9 +228,12 @@ public class Einladung extends javax.swing.JFrame {
 
         jDialog1.getAccessibleContext().setAccessibleDescription("noch nicht gespeichert");
 
-        jFrame1.setPreferredSize(new java.awt.Dimension(700, 600));
-
         jPanel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel3.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jPanel3MouseMoved(evt);
+            }
+        });
         jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel3MouseClicked(evt);
@@ -295,6 +308,13 @@ public class Einladung extends javax.swing.JFrame {
             }
         });
 
+        jToggleButton2.setText("Automatischer Farbfilter setzten...");
+        jToggleButton2.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jToggleButton2StateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
         jFrame1Layout.setHorizontalGroup(
@@ -302,6 +322,10 @@ public class Einladung extends javax.swing.JFrame {
             .addGroup(jFrame1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jFrame1Layout.createSequentialGroup()
+                        .addComponent(jToggleButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jFrame1Layout.createSequentialGroup()
                         .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jFrame1Layout.createSequentialGroup()
@@ -342,7 +366,11 @@ public class Einladung extends javax.swing.JFrame {
                 .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
+                .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel22)
                 .addGap(5, 5, 5)
                 .addComponent(jLabel21)
@@ -977,6 +1005,7 @@ public class Einladung extends javax.swing.JFrame {
             try {
                 bildoriginal = ImageIO.read(new File(pfad));
                 bildbearbeitet = ImageIO.read(new File(pfad));
+                bildvergleich= ImageIO.read(new File(pfad));
 
                 /* bildbearbeitet = new BufferedImage(bildoriginal.getWidth(), bildoriginal.getHeight(), BufferedImage.TYPE_INT_ARGB);
                  Graphics2D g_bildbearbeitet = bildbearbeitet.createGraphics();
@@ -1037,7 +1066,7 @@ public class Einladung extends javax.swing.JFrame {
             y = 0;
             //Bild zunächst zurücksetzten
             g_b2.drawImage(bildoriginal, 0, 0, bildoriginal.getWidth(), bildoriginal.getHeight(), this);
-            jPanel3.repaint();
+           
 
             //Ausstanzen
             for (int i = 0; i < (bildbearbeitet.getHeight() * bildbearbeitet.getWidth()); i++) {
@@ -1051,28 +1080,36 @@ public class Einladung extends javax.swing.JFrame {
                 d3 = bl3 - blf;
                 df = (int) Math.sqrt((d1 * d1) + (d2 * d2) + (d3 * d3)); //"Abstand" zur Filterfarbe berechen
 
-                if (df <= filter) {
-                    g_b2.setColor(new Color(ro, gr, bl));
+                if (df <= filter){
+                    if( (y>y_rechteck  && y<(y_rechteck+h)) && (x>x_rechteck  && x<(x_rechteck+b))) {
+                        //Innere der Holdout Matte
+                    }
+                    else{
+                        g_b2.setColor(new Color(ro, gr, bl));
                     g_b2.drawRect(x - 1, y - 1, 1, 1);
-                } else {
-
-                }
+                    }
+                } 
                 x++;
                 if (x == bildbearbeitet.getWidth()) {
                     x = 0;
                     y++;
                 }
             }
-            jPanel3.repaint();
+            
             jPanel4.repaint();
 
         }
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
+       x_bild_filter=evt.getX()*(bildvergleich.getWidth()/jPanel3.getWidth());
+                y_bild_filter=evt.getY()*(bildvergleich.getHeight()/jPanel3.getHeight()); int w = jPanel3.getWidth();
+            int hoeheneu = bildbearbeitet.getHeight() * w / bildbearbeitet.getWidth();
+        x_bild_filter=evt.getX()*(bildvergleich.getWidth()/w);
+        y_bild_filter=evt.getY()*(bildvergleich.getHeight()/hoeheneu);
+        if(modus==1){
         //Automatischer Farbfilter durch Mausklick
-        x_bild_filter = evt.getX();
-        y_bild_filter = evt.getY();
+           
         int co = bildoriginal.getRGB(x_bild_filter, y_bild_filter);
         Color c = new Color(co);
         af1 = c.getRed() - rof;
@@ -1086,6 +1123,32 @@ public class Einladung extends javax.swing.JFrame {
         jSlider5.setBackground(Color.GREEN);
         jLabel21.setForeground(Color.RED);
         jLabel21.setText("Automatischer Filter aktiv! Eingestellter Wert:" + adf + "");
+        }
+        else if(modus==2){
+            Graphics2D g_bv = bildvergleich.createGraphics();
+            if(!gedrueckt){
+                gedrueckt=true;
+                x_rechteck=x_bild_filter;
+                y_rechteck=y_bild_filter;
+                System.out.println(x_rechteck);
+                System.out.println(y_rechteck);
+                g_bv.setColor(Color.black);
+                g_bv.fillRect(x_rechteck,y_rechteck, 50, 50);
+                System.out.println("Ecke festlegen");
+                jPanel3.repaint();
+            }
+            else if(gedrueckt==true && gezeichnet==false){
+                gezeichnet=true;
+                 b=x_bild_filter-x_rechteck;
+                 h=y_bild_filter-y_rechteck;
+                 System.out.println(b);
+                System.out.println(h);
+                 g_bv.setColor(new Color(100,100,100,100));
+                 g_bv.fillRect( x_rechteck, y_rechteck, b, h);
+                System.out.println("Rechteck zeichnen");
+                jPanel3.repaint();
+            }
+        }
     }//GEN-LAST:event_jPanel3MouseClicked
 
     private void jSpinner1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner1StateChanged
@@ -1094,6 +1157,20 @@ public class Einladung extends javax.swing.JFrame {
         jSlider5.setValue(filter);
         jSlider5.setBackground(Color.white);
     }//GEN-LAST:event_jSpinner1StateChanged
+
+    private void jToggleButton2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jToggleButton2StateChanged
+       if (modus == 1) {
+            modus = 2;
+            jToggleButton2.setText("Holdout Matte definieren...");
+        } else {
+            modus = 1;
+            jToggleButton2.setText("Automatischer Farbfilter setzen...");
+        }
+    }//GEN-LAST:event_jToggleButton2StateChanged
+
+    private void jPanel3MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseMoved
+       
+    }//GEN-LAST:event_jPanel3MouseMoved
 
     /**
      * @param args the command line arguments
@@ -1216,28 +1293,28 @@ public class Einladung extends javax.swing.JFrame {
 
     public void zeichneBild2(Graphics g) { //rechtes Bild
         if (bildbearbeitet != null) {
-            int w = jPanel3.getWidth();
+            int w = jPanel4.getWidth();
             int hoeheneu = bildbearbeitet.getHeight() * w / bildbearbeitet.getWidth();
             //System.out.println("Maße des Bildes original: " + bildbearbeitet.getWidth() + " " + bildbearbeitet.getHeight() + " , nach Anpassung: " + w + " " + hoeheneu);
             g.drawImage(bildbearbeitet, 0, 0, w, hoeheneu, this);
-            jPanel3.setSize(w, hoeheneu);
+            jPanel4.setSize(w, hoeheneu);
         } else {
             g.setColor(new Color(10, 10, 100));
-            g.fillRect(0, 0, jPanel3.getWidth(), jPanel3.getHeight());
+            g.fillRect(0, 0, jPanel4.getWidth(), jPanel4.getHeight());
         }
     }
 
     public void zeichneBild3(Graphics g) { //linkes Bild
-        if (bildoriginal != null) {
-            int w = jPanel4.getWidth();
-            int hoeheneu = bildoriginal.getHeight() * w / bildoriginal.getWidth();
+        if (bildvergleich != null) {
+            int w = jPanel3.getWidth();
+            int hoeheneu = bildvergleich.getHeight() * w / bildvergleich.getWidth();
             //System.out.println("Maße des Bildes original: " + bildoriginal.getWidth() + " " + bildoriginal.getHeight() + " , nach Anpassung: " + w + " " + hoeheneu);
-            jPanel4.setSize(w, hoeheneu);
-            g.drawImage(bildoriginal, 0, 0, w, hoeheneu, this);
+            jPanel3.setSize(w, hoeheneu);
+            g.drawImage(bildvergleich, 0, 0, w, hoeheneu, this);
 
         } else {
             g.setColor(new Color(10, 10, 100));
-            g.fillRect(0, 0, jPanel4.getWidth(), jPanel4.getHeight());
+            g.fillRect(0, 0, jPanel3.getWidth(), jPanel3.getHeight());
         }
     }
 
@@ -1266,6 +1343,7 @@ public class Einladung extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -1296,5 +1374,6 @@ public class Einladung extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton jToggleButton2;
     // End of variables declaration//GEN-END:variables
 }
