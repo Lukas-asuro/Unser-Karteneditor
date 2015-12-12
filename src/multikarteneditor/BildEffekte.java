@@ -22,7 +22,7 @@ public class BildEffekte extends javax.swing.JFrame {
 
     BufferedImage bildoriginal = null;
     BufferedImage bildbearbeitet = null;
-    BufferedImage b=null;
+    BufferedImage b = null;
     int x = 0;
     int y = 0;
     int bl = 0;
@@ -35,7 +35,7 @@ public class BildEffekte extends javax.swing.JFrame {
     int d1 = 0;
     int d2 = 0;
     int d3 = 0;
-    int filter=0;
+    int filter = 0;
 
     /**
      * Creates new form BildEffekte
@@ -86,6 +86,11 @@ public class BildEffekte extends javax.swing.JFrame {
         });
 
         jButton2.setText("Bild übernehmen");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Filter wählen...", "Weiß", "Rot", "Grün", "Blau" }));
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
@@ -226,7 +231,7 @@ public class BildEffekte extends javax.swing.JFrame {
                 bildbearbeitet = ImageIO.read(new File(pfad));
 
                 bildoriginal = bildbearbeitet;
-                b=bildoriginal;
+                b = bildoriginal;
                 jPanel1.repaint();
                 jPanel2.repaint();
                 jLabel1.setForeground(Color.blue);
@@ -240,50 +245,81 @@ public class BildEffekte extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
-         filter = jSlider1.getValue();
-         jLabel3.setText(""+filter+"");
+        filter = jSlider1.getValue();
+        jLabel3.setText("" + filter + "");
     }//GEN-LAST:event_jSlider1StateChanged
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
-        int auswahl=jComboBox1.getSelectedIndex();
-        if(auswahl==1){
-            rof=255;
-            grf=255;
-            blf=255;
+        int auswahl = jComboBox1.getSelectedIndex();
+        if (auswahl == 1) {
+            rof = 255;
+            grf = 255;
+            blf = 255;
             jLabel2.setText("Whitescreen");
-        }
-        else if(auswahl==2){
-            rof=255;
-            grf=0;
-            blf=0;
+        } else if (auswahl == 2) {
+            rof = 255;
+            grf = 0;
+            blf = 0;
             jLabel2.setText("Redscreen");
-        }
-        
-            else if(auswahl==3){
-            rof=0;
-            grf=255;
-            blf=0;
+        } else if (auswahl == 3) {
+            rof = 0;
+            grf = 255;
+            blf = 0;
             jLabel2.setText("Greenscreen");
-        }
-        else if(auswahl==4){
-            rof=0;
-            grf=0;
-            blf=255;
+        } else if (auswahl == 4) {
+            rof = 0;
+            grf = 0;
+            blf = 255;
             jLabel2.setText("Bluescreen");
         }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       if(bildoriginal!=null){
-        
-        Graphics2D g_b2 = bildbearbeitet.createGraphics();
-        x=0;
-        y=0;
-        //Ausstanzen
-        
-        for (int i = 0; i < (bildbearbeitet.getHeight() * bildbearbeitet.getWidth()); i++) {
-            //System.out.print(""+x+", ");
-            //System.out.println(y);
+        if (bildoriginal != null) {
+
+            Graphics2D g_b2 = bildbearbeitet.createGraphics();
+            x = 0;
+            y = 0;
+            //Ausstanzen
+
+            for (int i = 0; i < (bildbearbeitet.getHeight() * bildbearbeitet.getWidth()); i++) {
+                //System.out.print(""+x+", ");
+                //System.out.println(y);
+                int co = bildoriginal.getRGB(x, y);
+                Color c = new Color(co);
+                bl = c.getBlue();
+                gr = c.getGreen();
+                ro = c.getRed();
+                d1 = ro - rof;
+                d2 = gr - grf;
+                d3 = bl - blf;
+                df = (int) Math.sqrt((d1 * d1) + (d2 * d2) + (d3 * d3)); //"Abstand" zur Filterfarbe berechen
+
+                if (df <= filter) {
+                    g_b2.setColor(Color.YELLOW);
+                    g_b2.drawRect(x - 1, y - 1, 1, 1);
+
+                } else {
+                    //g_b2.setColor(Color.GREEN);
+                    //g_b2.drawRect(x-1,y-1,1,1); //andere als Filterfarbe
+                    // jPanel2.repaint();
+                }
+                x++;
+                if (x == bildbearbeitet.getWidth()) {
+                    x = 0;
+                    y++;
+                }
+
+            }
+            jPanel2.repaint();
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jPanel1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseMoved
+        if (bildoriginal != null) {
+
+            x = evt.getX();
+            y = evt.getY();
             int co = bildoriginal.getRGB(x, y);
             Color c = new Color(co);
             bl = c.getBlue();
@@ -292,118 +328,85 @@ public class BildEffekte extends javax.swing.JFrame {
             d1 = ro - rof;
             d2 = gr - grf;
             d3 = bl - blf;
-            df = (int)Math.sqrt((d1 * d1) + (d2 * d2) + (d3 * d3)); //"Abstand" zur Filterfarbe berechen
-            
-            if (df <= filter) {
-               g_b2.setColor(Color.YELLOW);
-              g_b2.drawRect(x-1, y-1, 1, 1);
-               
-            }
-            else{
-               //g_b2.setColor(Color.GREEN);
-               //g_b2.drawRect(x-1,y-1,1,1); //andere als Filterfarbe
-               // jPanel2.repaint();
-            }
-            x++;
-            if (x == bildbearbeitet.getWidth()) {
-                x = 0;
-                y++;
-            }
-            
-        
-        }
-       jPanel2.repaint();
-       }
-    }//GEN-LAST:event_jButton3ActionPerformed
+            df = (int) Math.sqrt((d1 * d1) + (d2 * d2) + (d3 * d3)); //"Abstand" zur Filterfarbe berechen
 
-    private void jPanel1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseMoved
-                if(bildoriginal!=null){
-                
-                x=evt.getX();
-                y=evt.getY();
-       int co = bildoriginal.getRGB(x, y);
-            Color c = new Color(co);
-            bl = c.getBlue();
-            gr = c.getGreen();
-            ro = c.getRed();
-            d1 = ro - rof;
-            d2 = gr - grf;
-            d3 = bl - blf;
-            df = (int)Math.sqrt((d1 * d1) + (d2 * d2) + (d3 * d3)); //"Abstand" zur Filterfarbe berechen
-            
             if (df <= filter) {
-               jLabel4.setText("Ausstanzen");
-               
-            }
-            else{
+                jLabel4.setText("Ausstanzen");
+
+            } else {
                 jLabel4.setText("Beibehalten");
-               
+
             }
             jPanel1.repaint();
-                }
+        }
     }//GEN-LAST:event_jPanel1MouseMoved
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-bildbearbeitet=b;
-bildoriginal=b;
-jPanel2.repaint();
+        bildbearbeitet = b;
+        bildoriginal = b;
+        jPanel2.repaint();
     }//GEN-LAST:event_jButton4ActionPerformed
 
-                    /**
-                     * @param args the command line arguments
-                     */
-                    public static void main(String args[]) {
-                        /* Set the Nimbus look and feel */
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-                         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-                         */
-                        try {
-                            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                                if ("Nimbus".equals(info.getName())) {
-                                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                                    break;
-                                }
-                            }
-                        } catch (ClassNotFoundException ex) {
-                            java.util.logging.Logger.getLogger(BildEffekte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-                        } catch (InstantiationException ex) {
-                            java.util.logging.Logger.getLogger(BildEffekte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-                        } catch (IllegalAccessException ex) {
-                            java.util.logging.Logger.getLogger(BildEffekte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-                        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-                            java.util.logging.Logger.getLogger(BildEffekte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-                        }
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(BildEffekte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(BildEffekte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(BildEffekte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(BildEffekte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         //</editor-fold>
 
-                        /* Create and display the form */
-                        java.awt.EventQueue.invokeLater(new Runnable() {
-                            public void run() {
-                                new BildEffekte().setVisible(true);
-                            }
-                        });
-                    }
-                    
-                    public void zeichneBild2(Graphics g) {
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new BildEffekte().setVisible(true);
+            }
+        });
+    }
+
+    public void zeichneBild2(Graphics g) {
         if (bildbearbeitet != null) {
             int w = jPanel2.getWidth();
             int hoeheneu = bildbearbeitet.getHeight() * w / bildbearbeitet.getWidth();
             System.out.println("Maße des Bildes original: " + bildbearbeitet.getWidth() + " " + bildbearbeitet.getHeight() + " , nach Anpassung: " + w + " " + hoeheneu);
             g.drawImage(bildbearbeitet, 0, 0, w, hoeheneu, this);
-            jPanel2.setSize(w,hoeheneu);
+            jPanel2.setSize(w, hoeheneu);
         } else {
             g.setColor(new Color(10, 10, 100));
             g.fillRect(0, 0, jPanel2.getWidth(), jPanel2.getHeight());
         }
     }
-                    public void zeichneBild(Graphics g) {
+
+    public void zeichneBild(Graphics g) {
         if (bildoriginal != null) {
             int w = jPanel1.getWidth();
             int hoeheneu = bildoriginal.getHeight() * w / bildoriginal.getWidth();
             System.out.println("Maße des Bildes original: " + bildoriginal.getWidth() + " " + bildoriginal.getHeight() + " , nach Anpassung: " + w + " " + hoeheneu);
             jPanel1.setSize(w, hoeheneu);
             g.drawImage(bildoriginal, 0, 0, w, hoeheneu, this);
-           
+
         } else {
             g.setColor(new Color(10, 10, 100));
             g.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());

@@ -168,7 +168,6 @@ public class Einladung extends javax.swing.JFrame {
 
         jDialog1.setTitle("Hinweis");
         jDialog1.setBackground(new java.awt.Color(255, 255, 0));
-        jDialog1.setLocation(new java.awt.Point(200, 200));
         jDialog1.setName("Hilfe Hilfe"); // NOI18N
 
         jLabel15.setText("Achtung! Du hast die Karte noch nicht gespeichert! Willst du das Programm trotzdem beenden? ");
@@ -440,6 +439,11 @@ public class Einladung extends javax.swing.JFrame {
         });
 
         jButton4.setText("Karte Drucken");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton7.setText("Bild einfügen");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -1049,6 +1053,14 @@ public class Einladung extends javax.swing.JFrame {
         jLabel21.setForeground(Color.RED);
         jLabel21.setText("Automatischer Filter aktiv! Eingestellter Wert:" + adf + "");
     }//GEN-LAST:event_jPanel3MouseClicked
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
