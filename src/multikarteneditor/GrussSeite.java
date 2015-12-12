@@ -12,6 +12,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 
@@ -20,18 +21,19 @@ import javax.swing.JFileChooser;
  * @author Lukas
  */
 public class GrussSeite extends javax.swing.JFrame {
-    
-    class punkt{
+
+    class punkt {
+
         int x_koordinate;
         int y_koordinate;
         boolean text;
-        punkt(int x_k,int y_k, boolean t){
-        this.x_koordinate=x_k;
-        this.y_koordinate=y_k;
-        this.text=t;
+
+        punkt(int x_k, int y_k, boolean t) {
+            this.x_koordinate = x_k;
+            this.y_koordinate = y_k;
+            this.text = t;
+        }
     }
-            }
-    
 
     BufferedImage bi = null;
     BufferedImage bildoriginal = null;
@@ -45,8 +47,11 @@ public class GrussSeite extends javax.swing.JFrame {
     int oben_x = 0;
     int oben_y = 0;
     int groesse = 10;
-    
-           
+    int xBild = 0;
+    int yBild = 0;
+
+    ArrayList<Integer> xProzent = new ArrayList<>();
+    ArrayList<Integer> yProzent = new ArrayList<>();
 
     /**
      * Creates new form GrussSeite
@@ -245,15 +250,12 @@ public class GrussSeite extends javax.swing.JFrame {
         String empfaenger = jTextField1.getText();
         String ort = jTextField2.getText();
         String absender = jTextField3.getText();
-        
-        
-        
 
         if (bildoriginal != null) {
 
             blank = new BufferedImage(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_INT_RGB);
             Graphics2D g_blank = blank.createGraphics();
-            g_blank.setColor(new Color(255, 255, 255));
+            g_blank.setColor(new Color(255, 255, 255)); // weiß
             g_blank.fillRect(0, 0, bi.getWidth(), bi.getHeight());
 
             Graphics2D g2d = bildoriginal.createGraphics();
@@ -271,31 +273,42 @@ public class GrussSeite extends javax.swing.JFrame {
             g_blank.drawString("" + ort + ".", 200, 400);
             g_blank.drawString(absender, 200, 600);
 
-            for (int i = 0; i < (bi.getWidth() * bi.getHeight()); i++) { 
-                x = i % bi.getWidth();
-                y = (int) (i / bi.getWidth());
+            for (int i = 0; i < (bi.getWidth() * bi.getHeight()); i++) {
+               y = i % bi.getHeight();  // liefert jeweils rest wird erst 0 wenn es gleich groß ist
+              // x= (int) (i/bi.getHeight());  // wird 1 wenn i == Höhe
+               // x = i % bi.getWidth();
+               // y = (int) (i / bi.getWidth());
                 int co = blank.getRGB(x, y);
                 Color c = new Color(co);
                 bl = c.getBlue();
                 gr = c.getGreen();
                 ro = c.getRed();
-                if (x == bi.getWidth() - 1) {
-                    y++;
+                if (y == bi.getHeight() - 1) {  // davor x
                     x = 0;
+                    y++;
                     
+
                 }
 
                 if (gr == 255 && ro == 255) {      //Weiß-> kein Text                 
-                    punkt p=new punkt(x,y,false);
-                   
-                    
+
                 } else {            //blau -> Text              
-                    punkt p=new punkt(x,y,true);
-                   
+                    xProzent.add(x / (bi.getWidth() - 1));
+                    yProzent.add(y / (bi.getHeight() - 1));
+                    
                 }
 
-                i = y * bi.getWidth() + x;
-                x++;
+               // i = x * bi.getHeight() + y;
+                y++; // x++?
+
+                for (int j = 0; j < yProzent.size(); j++) {
+                    xBild = xProzent.get(j) * (bi.getWidth() - 1);
+                    yBild = yProzent.get(j) * (bi.getHeight() - 1);
+                    g_bi.fillRect(xBild, yBild, 50, 50);
+                    //g_blank.drawImage(bi,xBild,yBild, 20, 20, this);
+                    
+                 
+                }
             }
             jPanel1.repaint();
 
