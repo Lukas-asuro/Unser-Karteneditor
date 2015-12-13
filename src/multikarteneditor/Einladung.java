@@ -798,6 +798,7 @@ public class Einladung extends javax.swing.JFrame {
         v_x = v_x + 20;
         //Karten erstellen
         int a = 0;
+        int d=0;
         karte = new BufferedImage(jPanel2.getWidth(), jPanel2.getHeight(), BufferedImage.TYPE_INT_RGB);
         Graphics2D g_karte = karte.createGraphics();
         g_karte.setColor(new Color(ro, gr, bl));
@@ -866,7 +867,7 @@ public class Einladung extends javax.swing.JFrame {
             g_karte.setColor(Color.blue);
             g_karte.drawString("" + anrede + ",", v_x + b, 80);
 
-            //Automatischer Zeilenumbruch
+            //Automatischer Zeilenumbruch für Text
             int laenge = text.length();
             int l = 0;
             int max = 35;
@@ -876,7 +877,7 @@ public class Einladung extends javax.swing.JFrame {
             for (int i = 0; i < woerter.length; i++) {
                 l = l + woerter[i].length() + 1;
                 if (l > max && lm == 0) {
-                    lm = l;
+                    lm = l-woerter[i].length()-1;
                 }
             }
 
@@ -892,12 +893,39 @@ public class Einladung extends javax.swing.JFrame {
 
             g_karte.setColor(Color.red);
             g_karte.drawString("Wann: Am " + wann + "", v_x + c, 160 + a);
-            g_karte.drawString("Wo: " + wo + "", v_x + c, 200 + a);
-            g_karte.drawString("U.A.w.g. bis zum " + antwort + "", v_x + c, 240 + a);
-            g_karte.drawString("Tel.: " + tel + "", v_x + c, 280 + a);
+            
+            //Automatischer Zeilenumbruch für Ort
+            
+            int laenge2 = wo.length();
+            int l2 = 0;
+            int max2 = 35;
+            int lm2 = 0;
+
+            String ort[] = wo.split(" ");
+            for (int i = 0; i < ort.length; i++) {
+                l2 = l2 + ort[i].length() + 1;
+                if (l2 > max2 && lm2 == 0) {
+                    lm2 = l2-ort[i].length()-1;
+                }
+            }
+
+            if (lm2 != 0) {
+                String wo2 = wo.substring(lm2, laenge2);
+                wo = wo.substring(0, lm2);
+                g_karte.drawString("Wo: " + wo + "", v_x + c, 200 + a);
+                g_karte.drawString("" + wo2 + "", v_x + c, 240 + a);
+                d=40;
+                
+            } else {
+                g_karte.drawString("Wo: " + wo + "", v_x + c, 200 + a);
+            }
+
+            
+            g_karte.drawString("U.A.w.g. bis zum " + antwort + "", v_x + c, 240 + a+d);
+            g_karte.drawString("Tel.: " + tel + "", v_x + c, 280 + a+d);
             g_karte.setFont(new Font(schrift, Font.BOLD, 30));
             g_karte.setColor(Color.blue);
-            g_karte.drawString(absender, v_x + b, 320 + a);
+            g_karte.drawString(absender, v_x + b, 320 + a+d);
 
         }
         //Text Vorderseite
