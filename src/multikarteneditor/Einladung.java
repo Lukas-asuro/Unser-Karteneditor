@@ -52,8 +52,10 @@ public class Einladung extends javax.swing.JFrame {
     String betreff = null;
     String betreff2 = null;
     String schrift = "Arial";
+    int schriftgroesse=0;
     boolean gespeichert = false;
     boolean schnee = false;
+    boolean reset= false;
 
     // Für Bildeffekte:
     BufferedImage bildoriginal = null;
@@ -80,14 +82,14 @@ public class Einladung extends javax.swing.JFrame {
     int af2 = 0;
     int af3 = 0;
     int adf = 0;
-    int modus=1;
-    boolean gedrueckt=false;
-    boolean gezeichnet=false;
-    int x_rechteck=0;
-    int y_rechteck=0;
-    int b=0;
-    int h=0;
-    int max=0;
+    int modus = 1;
+    boolean gedrueckt = false;
+    boolean gezeichnet = false;
+    int x_rechteck = 0;
+    int y_rechteck = 0;
+    int b = 0;
+    int h = 0;
+    int max = 0;
 
     /**
      * Creates new form Einladung
@@ -137,6 +139,8 @@ public class Einladung extends javax.swing.JFrame {
         jToggleButton2 = new javax.swing.JToggleButton();
         jButton9 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+        jLabel24 = new javax.swing.JLabel();
         jDialog2 = new javax.swing.JDialog();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -335,6 +339,15 @@ public class Einladung extends javax.swing.JFrame {
             }
         });
 
+        jButton11.setText("Holdout Reset");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+
+        jLabel24.setText("Mauszeiger:");
+
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
         jFrame1Layout.setHorizontalGroup(
@@ -342,10 +355,15 @@ public class Einladung extends javax.swing.JFrame {
             .addGroup(jFrame1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton9)
                     .addGroup(jFrame1Layout.createSequentialGroup()
-                        .addComponent(jToggleButton2)
+                        .addComponent(jButton9)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel24)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton2)
+                        .addGap(4, 4, 4)
+                        .addComponent(jButton11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jFrame1Layout.createSequentialGroup()
                         .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -364,7 +382,6 @@ public class Einladung extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton4))))
                     .addComponent(jLabel22)
-                    .addComponent(jLabel21)
                     .addGroup(jFrame1Layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addGap(27, 27, 27)
@@ -372,8 +389,9 @@ public class Einladung extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton10)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addComponent(jButton10))
+                    .addComponent(jLabel21))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
         jFrame1Layout.setVerticalGroup(
             jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -390,12 +408,14 @@ public class Einladung extends javax.swing.JFrame {
                 .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
-                .addComponent(jButton9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
                 .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton2))
+                    .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton9)
+                        .addComponent(jLabel24)
+                        .addComponent(jToggleButton2)
+                        .addComponent(jButton11)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel22)
                 .addGap(5, 5, 5)
@@ -794,9 +814,9 @@ public class Einladung extends javax.swing.JFrame {
         //Konfetti zeichnen
         int r = (int) (Math.random() * 120) + 100;
         for (int i = 0; i < r; i++) {
-            int zr = (int) (Math.random() * 200) + 55;
-            int zg = (int) (Math.random() * 200) + 55;
-            int zb = (int) (Math.random() * 200) + 55;
+            int zr = (int) (Math.random() * 210) + 45;
+            int zg = (int) (Math.random() * 210) + 45;
+            int zb = (int) (Math.random() * 210) + 45;
             int zx = (int) (Math.random() * jPanel2.getWidth()) + 20;
             int zy = (int) (Math.random() * jPanel2.getHeight()) + 20;
             g_karte.setColor(new Color(zr, zg, zb, transparenz));
@@ -882,7 +902,7 @@ public class Einladung extends javax.swing.JFrame {
         }
         //Text Vorderseite
         g_karte2.setColor(Color.blue);
-        g_karte2.setFont(new Font(schrift, Font.PLAIN, 40));
+        g_karte2.setFont(new Font(schrift, Font.PLAIN, schriftgroesse));
         g_karte2.drawString("Herzliche Einladung", v_x + 50, 200);
         g_karte2.drawString("" + betreff + "", v_x + 50, 240);
         g_karte2.drawString("" + betreff2 + "", v_x + 50, 280);
@@ -897,6 +917,42 @@ public class Einladung extends javax.swing.JFrame {
         g_karte2.setStroke(new BasicStroke(5));
         g_karte2.drawRect(g, g, jPanel2.getWidth() - (v_x + g), jPanel2.getHeight() - 2 * g);
         g_karte2.drawRect(v_x, g, jPanel2.getWidth() - (v_x + g), jPanel2.getHeight() - 2 * g);
+        if (bildbearbeitet!=null){
+        //Bild nochmals anpassen
+        Graphics2D g_b2 = bildbearbeitet.createGraphics();
+        Graphics2D g_b3 = bildvergleich.createGraphics();
+        x = 0;
+        y = 0;
+        //Bild zunächst zurücksetzten
+        g_b2.drawImage(bildoriginal, 0, 0, bildoriginal.getWidth(), bildoriginal.getHeight(), this);
+
+        //Ausstanzen
+        for (int i = 0; i < (bildbearbeitet.getHeight() * bildbearbeitet.getWidth()); i++) {
+            int co = bildoriginal.getRGB(x, y);
+            Color c = new Color(co);
+            bl3 = c.getBlue();
+            gr3 = c.getGreen();
+            ro3 = c.getRed();
+            d1 = ro3 - rof;
+            d2 = gr3 - grf;
+            d3 = bl3 - blf;
+            df = (int) Math.sqrt((d1 * d1) + (d2 * d2) + (d3 * d3)); //"Abstand" zur Filterfarbe berechen
+
+            if (df <= filter) {
+                if ((y > y_rechteck && y < (y_rechteck + h)) && (x > x_rechteck && x < (x_rechteck + b))) {
+                    //Innere der Holdout Matte
+                } else {
+                    g_b2.setColor(new Color(ro, gr, bl));
+                    g_b2.drawRect(x - 1, y - 1, 1, 1);
+
+                }
+            }
+            x++;
+            if (x == bildbearbeitet.getWidth()) {
+                x = 0;
+                y++;
+            }
+        }
 
         //Bild einfügen
         if (bildoriginal != null) {
@@ -916,6 +972,7 @@ public class Einladung extends javax.swing.JFrame {
 
             g_karte.drawImage(bildbearbeitet, x_bild, y_bild, bb, hoeheneu, this);
             g_karte2.drawImage(bildbearbeitet, x_bild, y_bild, bb, hoeheneu, this);
+        }
         }
         jPanel2.repaint();
 
@@ -990,19 +1047,21 @@ public class Einladung extends javax.swing.JFrame {
             betreff2 = "Geburtstag";
             schnee = false;
             schrift = "Vijaya";
+            schriftgroesse=40;
             slider(ro, gr, bl, transparenz);
         } else if (thema == 2) { //Jubiläum
             ro = 250;
             gr = 250;
             bl = 200;
-            ro2 = 255;
-            gr2 = 50;
+            ro2 = 220;
+            gr2 = 220;
             bl2 = 0;
             transparenz = 50;
             betreff = "zum";
             betreff2 = "Jubiläum";
             schnee = false;
             schrift = "Arial";
+            schriftgroesse=30;
             slider(ro, gr, bl, transparenz);
         } else if (thema == 3) { //Weihnachten
             ro = 0;
@@ -1016,6 +1075,7 @@ public class Einladung extends javax.swing.JFrame {
             betreff2 = "Weihnachtsfeier";
             schnee = true;
             schrift = "Vijaya";
+            schriftgroesse=40;
             slider(ro, gr, bl, transparenz);
         } else if (thema == 4) { //Party
             ro = 230;
@@ -1029,19 +1089,21 @@ public class Einladung extends javax.swing.JFrame {
             betreff2 = "Party";
             schnee = false;
             schrift = "Square721 BT";
+            schriftgroesse=30;
             slider(ro, gr, bl, transparenz);
         } else if (thema == 5) { //Weiß
             ro = 255;
             gr = 255;
             bl = 255;
-            ro2 = 255;
-            gr2 = 50;
-            bl2 = 0;
+            ro2 = 0;
+            gr2 = 0;
+            bl2 = 200;
             transparenz = 0;
             betreff = "";
             betreff2 = "";
             schnee = false;
             schrift = "Arial";
+            schriftgroesse=30;
             slider(ro, gr, bl, transparenz);
         }
 
@@ -1081,7 +1143,7 @@ public class Einladung extends javax.swing.JFrame {
             try {
                 bildoriginal = ImageIO.read(new File(pfad));
                 bildbearbeitet = ImageIO.read(new File(pfad));
-                bildvergleich= ImageIO.read(new File(pfad));
+                bildvergleich = ImageIO.read(new File(pfad));
 
                 /* bildbearbeitet = new BufferedImage(bildoriginal.getWidth(), bildoriginal.getHeight(), BufferedImage.TYPE_INT_ARGB);
                  Graphics2D g_bildbearbeitet = bildbearbeitet.createGraphics();
@@ -1138,12 +1200,11 @@ public class Einladung extends javax.swing.JFrame {
         //Filter anwenden und ausstanzen
         if (bildoriginal != null) {
             Graphics2D g_b2 = bildbearbeitet.createGraphics();
-            Graphics2D g_b3 = bildvergleich.createGraphics();
+
             x = 0;
             y = 0;
             //Bild zunächst zurücksetzten
             g_b2.drawImage(bildoriginal, 0, 0, bildoriginal.getWidth(), bildoriginal.getHeight(), this);
-           
 
             //Ausstanzen
             for (int i = 0; i < (bildbearbeitet.getHeight() * bildbearbeitet.getWidth()); i++) {
@@ -1157,78 +1218,74 @@ public class Einladung extends javax.swing.JFrame {
                 d3 = bl3 - blf;
                 df = (int) Math.sqrt((d1 * d1) + (d2 * d2) + (d3 * d3)); //"Abstand" zur Filterfarbe berechen
 
-                if (df <= filter){
-                    if( (y>y_rechteck  && y<(y_rechteck+h)) && (x>x_rechteck  && x<(x_rechteck+b))) {
+                if (df <= filter) {
+                    if ((y > y_rechteck && y < (y_rechteck + h)) && (x > x_rechteck && x < (x_rechteck + b))) {
                         //Innere der Holdout Matte
-                    }
-                    else{
+                    } else {
                         g_b2.setColor(new Color(ro, gr, bl));
-                    g_b2.drawRect(x - 1, y - 1, 1, 1);
+                        g_b2.drawRect(x - 1, y - 1, 1, 1);
                     }
-                } 
+                }
                 x++;
                 if (x == bildbearbeitet.getWidth()) {
                     x = 0;
                     y++;
                 }
             }
-            
+
             jPanel4.repaint();
-             b=0;
-             x_rechteck=0;
-            h=0;
-            y_rechteck=0;
-            g_b3.drawImage(bildoriginal, 0, 0, bildoriginal.getWidth(), bildoriginal.getHeight(), this);
 
         }
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
-       x_bild_filter=evt.getX()*(bildvergleich.getWidth()/jPanel3.getWidth());
-                y_bild_filter=evt.getY()*(bildvergleich.getHeight()/jPanel3.getHeight()); int w = jPanel3.getWidth();
-            int hoeheneu = bildbearbeitet.getHeight() * w / bildbearbeitet.getWidth();
-        x_bild_filter=evt.getX()*(bildvergleich.getWidth()/w);
-        y_bild_filter=evt.getY()*(bildvergleich.getHeight()/hoeheneu);
-       
-        if(modus==1){
+        x_bild_filter = evt.getX() * (bildvergleich.getWidth() / jPanel3.getWidth());
+        y_bild_filter = evt.getY() * (bildvergleich.getHeight() / jPanel3.getHeight());
+        int w = jPanel3.getWidth();
+        int hoeheneu = bildbearbeitet.getHeight() * w / bildbearbeitet.getWidth();
+        x_bild_filter = evt.getX() * (bildvergleich.getWidth() / w);
+        y_bild_filter = evt.getY() * (bildvergleich.getHeight() / hoeheneu);
+
+        if (modus == 1) {
         //Automatischer Farbfilter durch Mausklick
-           
-        int co = bildoriginal.getRGB(x_bild_filter, y_bild_filter);
-        Color c = new Color(co);
-        af1 = c.getRed() - rof;
-        af2 = c.getGreen() - grf;
-        af3 = c.getBlue() - blf;
-        adf = (int) Math.sqrt((af1 * af1) + (af2 * af2) + (af3 * af3)) + 15;
-        filter = adf;
-        jSlider5.setValue(adf);
-        filter = jSlider5.getValue();
-        jSpinner1.setValue(filter);
-        jSlider5.setBackground(Color.GREEN);
-        jLabel21.setForeground(Color.RED);
-        jLabel21.setText("Halbautomatischer Filter aktiv! Eingestellter Wert:" + adf + "");
-        }
-        else if(modus==2){
+
+            int co = bildoriginal.getRGB(x_bild_filter, y_bild_filter);
+            Color c = new Color(co);
+            af1 = c.getRed() - rof;
+            af2 = c.getGreen() - grf;
+            af3 = c.getBlue() - blf;
+            adf = (int) Math.sqrt((af1 * af1) + (af2 * af2) + (af3 * af3)) + 15;
+            filter = adf;
+            jSlider5.setValue(adf);
+            filter = jSlider5.getValue();
+            jSpinner1.setValue(filter);
+            jSlider5.setBackground(Color.GREEN);
+            jLabel21.setForeground(Color.RED);
+            jLabel21.setText("Halbautomatischer Filter aktiv! Eingestellter Wert:" + adf + "");
+        } else if (modus == 2) {
             Graphics2D g_bv = bildvergleich.createGraphics();
-            if(!gedrueckt){
-                gedrueckt=true;
-                x_rechteck=x_bild_filter;
-                y_rechteck=y_bild_filter;
-                System.out.println(x_rechteck);
-                System.out.println(y_rechteck);
+            if (!gedrueckt) {
+                gedrueckt = true;
+                x_rechteck = x_bild_filter;
+                y_rechteck = y_bild_filter;
+                //System.out.println(x_rechteck);
+                //System.out.println(y_rechteck);
                 g_bv.setColor(Color.black);
-                g_bv.fillRect(x_rechteck,y_rechteck, 50, 50);
-                System.out.println("Ecke festlegen");
+                g_bv.fillRect(x_rechteck, y_rechteck, 50, 50);
+                //System.out.println("Ecke festlegen");
                 jPanel3.repaint();
-            }
-            else if(gedrueckt==true && gezeichnet==false){
-                gezeichnet=true;
-                 b=x_bild_filter-x_rechteck;
-                 h=y_bild_filter-y_rechteck;
-                 System.out.println(b);
-                System.out.println(h);
-                 g_bv.setColor(new Color(100,100,100,100));
-                 g_bv.fillRect( x_rechteck, y_rechteck, b, h);
-                System.out.println("Rechteck zeichnen");
+            } else if (gedrueckt == true && gezeichnet == false) {
+                gezeichnet = true;
+                b = x_bild_filter - x_rechteck;
+                h = y_bild_filter - y_rechteck;
+                //System.out.println(b);
+                //System.out.println(h);
+                g_bv.setColor(new Color(100, 100, 100, 100));
+                g_bv.fillRect(x_rechteck, y_rechteck, b, h);
+                g_bv.setColor(Color.black);
+                g_bv.setStroke(new BasicStroke(10));
+                g_bv.drawRect(x_rechteck, y_rechteck, b, h);
+                //System.out.println("Rechteck zeichnen");
                 jPanel3.repaint();
                 jToggleButton2.setSelected(false);
             }
@@ -1243,7 +1300,7 @@ public class Einladung extends javax.swing.JFrame {
     }//GEN-LAST:event_jSpinner1StateChanged
 
     private void jToggleButton2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jToggleButton2StateChanged
-       if (modus == 1) {
+        if (modus == 1) {
             modus = 2;
             jToggleButton2.setText("Holdout Matte definieren...");
         } else {
@@ -1253,29 +1310,29 @@ public class Einladung extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton2StateChanged
 
     private void jPanel3MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseMoved
-       
+
     }//GEN-LAST:event_jPanel3MouseMoved
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-       int xf=0;
-       int yf=0;
-        for(int i=0; i<(2*bildoriginal.getHeight()); i++){
-           int co = bildoriginal.getRGB(xf, yf);
-        Color c = new Color(co);
-        af1 = c.getRed() - rof;
-        af2 = c.getGreen() - grf;
-        af3 = c.getBlue() - blf;
-        adf = (int) Math.sqrt((af1 * af1) + (af2 * af2) + (af3 * af3)) + 15;
-        if(adf>max){
-            max=adf;
+        int xf = 0;
+        int yf = 0;
+        for (int i = 0; i < (2 * bildoriginal.getHeight()); i++) {
+            int co = bildoriginal.getRGB(xf, yf);
+            Color c = new Color(co);
+            af1 = c.getRed() - rof;
+            af2 = c.getGreen() - grf;
+            af3 = c.getBlue() - blf;
+            adf = (int) Math.sqrt((af1 * af1) + (af2 * af2) + (af3 * af3)) + 15;
+            if (adf > max) {
+                max = adf;
+            }
+
+            yf++;
+            if (yf == bildoriginal.getHeight()) {
+                xf = bildoriginal.getWidth() - 1;
+                yf = 0;
+            }
         }
-        
-        yf++;
-         if (yf == bildoriginal.getHeight()) {
-                    xf = bildoriginal.getWidth()-1;
-                    yf=0;
-                }
-       }
         filter = max;
         jSlider5.setValue(max);
         filter = jSlider5.getValue();
@@ -1286,6 +1343,8 @@ public class Einladung extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jTextField1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseMoved
+        //Beispieltext aus Felder löschen
+        if(!reset){
         jTextField1.setText("");
         jTextField2.setText("");
         jTextField3.setText("");
@@ -1293,14 +1352,29 @@ public class Einladung extends javax.swing.JFrame {
         jTextField5.setText("");
         jTextField6.setText("");
         jTextField7.setText("");
+        reset=true;
+        }
     }//GEN-LAST:event_jTextField1MouseMoved
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         jDialog2.setVisible(true);
-        jDialog2.setSize(400,400);
+        jDialog2.setSize(400, 400);
         jTextArea1.setEditable(false);
-        
+
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        //Reset
+        gedrueckt = false;
+        gezeichnet = false;
+        b = 0;
+        x_rechteck = 0;
+        h = 0;
+        y_rechteck = 0;
+        Graphics2D g_b3 = bildvergleich.createGraphics();
+        g_b3.drawImage(bildoriginal, 0, 0, bildoriginal.getWidth(), bildoriginal.getHeight(), this);
+        jPanel3.repaint();
+    }//GEN-LAST:event_jButton11ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1452,6 +1526,7 @@ public class Einladung extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1482,6 +1557,7 @@ public class Einladung extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
