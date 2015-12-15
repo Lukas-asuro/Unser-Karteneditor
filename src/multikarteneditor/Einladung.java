@@ -462,7 +462,7 @@ public class Einladung extends javax.swing.JFrame {
 
         jLabel2.setText("Anrede");
 
-        jTextField1.setText("Hallo ");
+        jTextField1.setText("Lieber Gast");
         jTextField1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 jTextField1MouseMoved(evt);
@@ -471,15 +471,15 @@ public class Einladung extends javax.swing.JFrame {
 
         jLabel3.setText("Text");
 
-        jTextField2.setText("ich möchte Dich gerne einladen");
+        jTextField2.setText("ich möchte Dich gerne zu meiner Feier einladen");
 
         jLabel4.setText("Wann?");
 
-        jTextField3.setText("10.01.2016");
+        jTextField3.setText("10.01.2016 ab16 Uhr");
 
         jLabel5.setText("Wo?");
 
-        jTextField4.setText("Bei mir");
+        jTextField4.setText("Bei mir in der ESG-Straße 28 in Kornwestheim");
 
         jLabel6.setText("U.A.w.g. bis");
 

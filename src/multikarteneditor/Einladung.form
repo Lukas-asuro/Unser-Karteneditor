@@ -649,7 +649,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Hallo "/>
+            <Property name="text" type="java.lang.String" value="Lieber Gast"/>
           </Properties>
           <Events>
             <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="jTextField1MouseMoved"/>
@@ -662,7 +662,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="ich m&#xf6;chte Dich gerne einladen"/>
+            <Property name="text" type="java.lang.String" value="ich m&#xf6;chte Dich gerne zu meiner Feier einladen"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
@@ -672,7 +672,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="10.01.2016"/>
+            <Property name="text" type="java.lang.String" value="10.01.2016 ab16 Uhr"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
@@ -682,7 +682,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Bei mir"/>
+            <Property name="text" type="java.lang.String" value="Bei mir in der ESG-Stra&#xdf;e 28 in Kornwestheim"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
